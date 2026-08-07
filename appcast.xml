@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>RawStage — beta</title>
+    <link>https://rawstage.app/appcast.xml</link>
+    <description>Beta builds of RawStage.</description>
+    <language>en</language>
+    <item>
+      <title>0.9.0 (build 12)</title>
+      <pubDate>Fri, 07 Aug 2026 19:14:24 +0100</pubDate>
+      <sparkle:version>12</sparkle:version>
+      <sparkle:shortVersionString>0.9.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+        <p>First public beta build. Signed and notarized.</p>
+        <p>This build stops being current on 2026-10-06 — after that it still
+        opens and still exports your sessions, it just asks for a newer one.</p>
+      ]]></description>
+      <enclosure
+        url="https://github.com/fredericovanzeller/rawstage-site/releases/download/v0.9.0-b12/RawStage-0.9.0-b12.dmg"
+        sparkle:edSignature="8xxZqWFM2QLY4m46eSpOYFTM2LGP09uGfavo/aO2eMKY1U2VsKxDNxSguCJtdkREcTri6wTyDjkd+SuioSYFBw=="
+        length="7247576"
+        type="application/octet-stream" />
+    </item>
+  </channel>
+</rss>
