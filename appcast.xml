@@ -6,6 +6,18 @@
     <description>Beta builds of RawStage.</description>
     <language>en</language>
     <item>
+      <title>0.9.0 (build 16)</title>
+      <pubDate>Mon, 10 Aug 2026 17:51:38 +0000</pubDate>
+      <sparkle:version>16</sparkle:version>
+      <sparkle:shortVersionString>0.9.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <enclosure
+        url="https://github.com/fredericovanzeller/rawstage-site/releases/download/v0.9.0-b16/RawStage-0.9.0-b16.dmg"
+        sparkle:edSignature="E9u/2JmVx3PD2CuaM2gYS3jHzpT08/DE0n6Jx3uk91LhDoDv0vWh2g+eW2cOfdlw/qSQzRaHztKL1JDrJmELDA=="
+        length="7332729"
+        type="application/octet-stream" />
+    </item>
+    <item>
       <title>0.9.0 (build 15)</title>
       <pubDate>Mon, 10 Aug 2026 10:33:48 +0000</pubDate>
       <sparkle:version>15</sparkle:version>
