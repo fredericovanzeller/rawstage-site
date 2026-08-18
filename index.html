@@ -308,6 +308,47 @@
   </div>
 </section>
 
+<section class="wrap" id="shots" style="padding-top:8px">
+  <span class="kicker">The app, today</span>
+  <h2>Real screenshots, from a real session.</h2>
+  <div style="display:grid;gap:22px;margin-top:22px">
+    <figure style="margin:0">
+      <img id="ba-shot" src="img/app-develop-after.jpg"
+           data-after="img/app-develop-after.jpg" data-before="img/app-develop-before.jpg"
+           alt="RawStage develop view — Bay of Kotor session, edited"
+           style="width:100%;height:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.07);display:block;cursor:pointer">
+      <figcaption class="micro" style="display:block;margin-top:10px">
+        Develop — <b style="color:#E8E8EA">press and hold the image to see the before</b>,
+        the same gesture the app uses. Nothing here is mocked up: this is a RAF
+        from a working session, edited with the free toolset.
+      </figcaption>
+    </figure>
+    <figure style="margin:0">
+      <img src="img/app-crop.jpg"
+           alt="RawStage crop view — 16:9 crop with curve, levels and detail panels"
+           style="width:100%;height:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.07);display:block">
+      <figcaption class="micro" style="display:block;margin-top:10px">
+        Crop and geometry — presets, corner rotation, levels and detail,
+        all in the panel that ships free.
+      </figcaption>
+    </figure>
+  </div>
+  <script>
+  (function () {
+    var el = document.getElementById('ba-shot');
+    if (!el) return;
+    var show = function (before) { el.src = before ? el.dataset.before : el.dataset.after; };
+    ['mousedown', 'touchstart'].forEach(function (e) {
+      el.addEventListener(e, function (ev) { ev.preventDefault(); show(true); });
+    });
+    ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(function (e) {
+      el.addEventListener(e, function () { show(false); });
+    });
+    new Image().src = el.dataset.before; // preload the before
+  })();
+  </script>
+</section>
+
 <section class="why wrap">
   <div class="why-inner">
     <div>
