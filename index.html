@@ -314,7 +314,7 @@
   <div style="display:grid;gap:22px;margin-top:22px">
     <figure style="margin:0">
       <img id="ba-shot" src="img/app-develop-after.jpg"
-           data-after="img/app-develop-after.jpg" data-before="img/app-develop-before.jpg"
+           data-rest="img/app-develop-after.jpg" data-hold="img/app-develop-before.jpg"
            alt="RawStage develop view — Bay of Kotor session, edited"
            style="width:100%;height:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.07);display:block;cursor:pointer">
       <figcaption class="micro" style="display:block;margin-top:10px">
@@ -333,18 +333,63 @@
       </figcaption>
     </figure>
   </div>
+
+  <span class="kicker" style="display:block;margin-top:44px">Being built now — the Pro color engine</span>
+  <div style="display:grid;gap:22px;margin-top:22px">
+    <figure style="margin:0">
+      <img src="img/app-grade-after.jpg"
+           data-rest="img/app-grade-after.jpg" data-hold="img/app-grade-before.jpg"
+           alt="RawStage develop view — Skadar lake at dusk, graded with the shadows wheel and a luminance palette selection"
+           style="width:100%;height:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.07);display:block;cursor:pointer">
+      <figcaption class="micro" style="display:block;margin-top:10px">
+        Grading and palette — <b style="color:#E8E8EA">press and hold to see the frame
+        it started from</b>. The shadows wheel sits cool at 135°, saturation comes
+        down 20, and the sky is reclaimed by selecting its midtones in the palette
+        and taking their luminance down 52. Same RAF, no masks painted by hand.
+      </figcaption>
+    </figure>
+    <figure style="margin:0">
+      <img src="img/app-mask-tight.jpg"
+           data-rest="img/app-mask-tight.jpg" data-hold="img/app-mask-wide.jpg"
+           alt="RawStage palette selection with Show Mask on — the affected area drawn in pink over the sky, Range 45 and Feather 45"
+           style="width:100%;height:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.07);display:block;cursor:pointer">
+      <figcaption class="micro" style="display:block;margin-top:10px">
+        Range and Feather, with Show Mask on — <b style="color:#E8E8EA">press and hold
+        to open the selection up</b>, from 45 and 45 to 91 and 74. The pink is exactly
+        what the edit will touch: Range decides how far the selection reaches from the
+        colour you picked, Feather how softly it lets go at the edges.
+      </figcaption>
+    </figure>
+  </div>
+
+  <p class="micro" style="margin-top:18px">
+    The two above are from the Pro engine in development — they are not in the
+    beta you can download today. What ships free is everything in the first two shots.
+  </p>
+
   <script>
   (function () {
-    var el = document.getElementById('ba-shot');
-    if (!el) return;
-    var show = function (before) { el.src = before ? el.dataset.before : el.dataset.after; };
-    ['mousedown', 'touchstart'].forEach(function (e) {
-      el.addEventListener(e, function (ev) { ev.preventDefault(); show(true); });
+    var shots = document.querySelectorAll('img[data-hold]');
+    if (!shots.length) return;
+    Array.prototype.forEach.call(shots, function (el) {
+      var show = function (hold) { el.src = hold ? el.dataset.hold : el.dataset.rest; };
+      el.addEventListener('mousedown', function (ev) { ev.preventDefault(); show(true); });
+      ['mouseup', 'mouseleave'].forEach(function (e) {
+        el.addEventListener(e, function () { show(false); });
+      });
+      // touch: never swallow the scroll — dragging reverts and the page scrolls
+      el.addEventListener('touchstart', function () { show(true); }, {passive: true});
+      ['touchmove', 'touchend', 'touchcancel'].forEach(function (e) {
+        el.addEventListener(e, function () { show(false); }, {passive: true});
+      });
     });
-    ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(function (e) {
-      el.addEventListener(e, function () { show(false); });
-    });
-    new Image().src = el.dataset.before; // preload the before
+    // preload every held frame, so the first hold is a cache hit, not a fetch;
+    // after load, so it never competes with the visible page
+    var preload = function () {
+      Array.prototype.forEach.call(shots, function (el) { new Image().src = el.dataset.hold; });
+    };
+    if (document.readyState === 'complete') preload();
+    else window.addEventListener('load', preload);
   })();
   </script>
 </section>
