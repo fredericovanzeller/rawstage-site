@@ -351,6 +351,7 @@
     <figure style="margin:0">
       <img src="img/app-mask-tight.jpg"
            data-rest="img/app-mask-tight.jpg" data-hold="img/app-mask-wide.jpg"
+           data-hold-label="RANGE 91 · FEATHER 74"
            alt="RawStage palette selection with Show Mask on — the affected area drawn in pink over the sky, Range 45 and Feather 45"
            style="width:100%;height:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.07);display:block;cursor:pointer">
       <figcaption class="micro" style="display:block;margin-top:10px">
@@ -371,8 +372,30 @@
   (function () {
     var shots = document.querySelectorAll('img[data-hold]');
     if (!shots.length) return;
+    // The app's own affordance: a "BEFORE"-style pill in the corner of every
+    // holdable image. At rest it says what to do; while held it becomes the
+    // exact badge the app shows during \ before/after.
+    var coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    var REST_LABEL = coarse ? 'TOUCH & HOLD' : 'HOLD TO COMPARE';
     Array.prototype.forEach.call(shots, function (el) {
-      var show = function (hold) { el.src = hold ? el.dataset.hold : el.dataset.rest; };
+      var wrap = document.createElement('span');
+      wrap.style.cssText = 'position:relative;display:block';
+      el.parentNode.insertBefore(wrap, el);
+      wrap.appendChild(el);
+      var tag = document.createElement('span');
+      tag.textContent = REST_LABEL;
+      tag.style.cssText = 'position:absolute;top:14px;left:14px;pointer-events:none;' +
+        'padding:6px 12px;border-radius:999px;background:rgba(22,22,26,0.62);' +
+        'border:1px solid rgba(255,255,255,0.14);color:#E8E8EA;' +
+        'font-size:10px;font-weight:600;letter-spacing:0.14em;' +
+        'box-shadow:0 4px 14px rgba(0,0,0,0.45);transition:opacity 150ms';
+      wrap.appendChild(tag);
+      el._holdTag = tag;
+      var show = function (hold) {
+        el.src = hold ? el.dataset.hold : el.dataset.rest;
+        el._holdTag.textContent = hold ? (el.dataset.holdLabel || 'BEFORE') : REST_LABEL;
+        el._holdTag.style.background = hold ? 'rgba(22,22,26,0.85)' : 'rgba(22,22,26,0.62)';
+      };
       el.addEventListener('mousedown', function (ev) { ev.preventDefault(); show(true); });
       ['mouseup', 'mouseleave'].forEach(function (e) {
         el.addEventListener(e, function () { show(false); });
