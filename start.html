@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Getting started with RawStage — tether, cull and develop on macOS</title>
+<meta name="description" content="How to set up RawStage: open a session, cull, develop, use the Focus Check and Viewer windows, build a look with MOOD, and run a tethered session with a Fujifilm X or GFX camera.">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="RawStage">
+<meta property="og:url" content="https://rawstage.app/start.html">
+<meta property="og:title" content="Getting started with RawStage">
+<meta property="og:description" content="From the DMG to your first tethered frame: sessions, culling, the develop panel, the two studio windows, MOOD, and a Fujifilm tether set up step by step.">
+<meta property="og:image" content="https://rawstage.app/img/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="RawStage: Shoot. Cull. Develop. One app, no subscription. Everything unlocked for 60 days — beside a landscape photograph developed in the app.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Getting started with RawStage">
+<meta name="twitter:description" content="From the DMG to your first tethered frame: sessions, culling, develop, the studio windows, MOOD and a Fujifilm tether.">
+<meta name="twitter:image" content="https://rawstage.app/img/og-card.jpg">
+<style>
+  :root{
+    --bg0:#0B0B0D; --bg1:#101013; --panel:#17171B;
+    --line-faint:rgba(255,255,255,.07); --line-strong:rgba(255,255,255,.14);
+    --txt-hi:#E8E8EA; --txt-mid:#9A9AA2; --txt-low:#5C5C64;
+    --accent:#D9A441; --accent-ink:#17130A;
+    --ease:cubic-bezier(.2,.7,.3,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg0); color:var(--txt-mid);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;
+    font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+  .narrow{max-width:760px}
+
+  .kicker{
+    font-size:11px;font-weight:600;text-transform:uppercase;
+    letter-spacing:.22em;color:var(--txt-low);
+  }
+  h1,h2,h3{color:var(--txt-hi);font-weight:600;letter-spacing:.01em}
+  a{color:var(--txt-hi)}
+
+  /* ── nav ─────────────────────────────────────── */
+  nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    background:rgba(11,11,13,.72);border-bottom:1px solid var(--line-faint);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .wordmark{
+    font-size:14px;font-weight:700;letter-spacing:.18em;color:var(--txt-hi);
+    text-transform:uppercase;text-decoration:none;
+  }
+  .wordmark span{color:var(--txt-low)}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  .nav-link{font-size:13px;color:var(--txt-mid);text-decoration:none}
+  .nav-link:hover{color:var(--txt-hi)}
+  .nav-cta{
+    font-size:13px;font-weight:600;color:var(--txt-hi);text-decoration:none;
+    border:1px solid var(--line-strong);border-radius:999px;padding:8px 18px;
+    transition:all .16s var(--ease);
+  }
+  .nav-cta:hover{background:rgba(255,255,255,.08)}
+
+  /* ── hero ────────────────────────────────────── */
+  .hero{padding:84px 0 40px}
+  .hero .kicker{display:block;margin-bottom:20px}
+  .hero h1{
+    font-size:clamp(32px,4.6vw,46px);line-height:1.14;letter-spacing:-.015em;
+    max-width:740px;margin:0 0 20px;
+  }
+  .hero .sub{font-size:17px;max-width:640px;color:var(--txt-mid)}
+  .micro{font-size:12px;letter-spacing:.03em;color:var(--txt-low)}
+  .hero .micro{display:block;margin-top:26px;max-width:640px;line-height:1.7}
+
+  /* ── contents ────────────────────────────────── */
+  .toc{padding:32px 0 8px}
+  .toc-card{
+    background:var(--panel);border:1px solid var(--line-faint);border-radius:12px;
+    padding:26px 30px;
+  }
+  .toc-card .kicker{display:block;margin-bottom:16px}
+  .toc-list{
+    list-style:none;display:grid;grid-template-columns:repeat(2,1fr);
+    gap:9px 40px;counter-reset:toc;
+  }
+  .toc-list a{
+    text-decoration:none;color:var(--txt-mid);font-size:13.5px;
+    display:flex;gap:12px;transition:color .16s var(--ease);
+  }
+  .toc-list a:hover{color:var(--txt-hi)}
+  .toc-list a b{
+    color:var(--txt-low);font-variant-numeric:tabular-nums;font-weight:600;
+    min-width:18px;
+  }
+
+  /* ── steps ───────────────────────────────────── */
+  .step{padding:76px 0 0;scroll-margin-top:84px}
+  .step-head{display:flex;align-items:baseline;gap:16px;margin-bottom:10px}
+  .step-num{
+    font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--accent);
+    font-variant-numeric:tabular-nums;
+  }
+  .step h2{font-size:27px;line-height:1.25;letter-spacing:-.01em;max-width:740px}
+  .step .lead{font-size:15.5px;max-width:740px;margin-top:14px}
+  .step p{max-width:740px;margin-top:14px;font-size:14.5px}
+  .step p + p{margin-top:12px}
+  b,strong{color:var(--txt-hi);font-weight:600}
+
+  ol.do,ul.do{list-style:none;max-width:740px;margin-top:20px;
+    display:flex;flex-direction:column;gap:14px;counter-reset:doit}
+  ol.do li{
+    counter-increment:doit;position:relative;padding-left:34px;font-size:14.5px;
+  }
+  ol.do li::before{
+    content:counter(doit);position:absolute;left:0;top:1px;
+    width:21px;height:21px;border-radius:50%;border:1px solid var(--line-strong);
+    font-size:10.5px;font-weight:700;color:var(--txt-low);
+    display:flex;align-items:center;justify-content:center;
+    font-variant-numeric:tabular-nums;
+  }
+  ul.do li{position:relative;padding-left:20px;font-size:14.5px}
+  ul.do li::before{
+    content:"";position:absolute;left:2px;top:9px;width:5px;height:5px;
+    border-radius:50%;background:var(--txt-low);
+  }
+
+  kbd{
+    font-family:inherit;font-size:11.5px;color:var(--txt-hi);
+    border:1px solid var(--line-strong);border-radius:5px;
+    padding:2px 7px;white-space:nowrap;background:rgba(255,255,255,.03);
+  }
+
+  .note{
+    max-width:740px;margin-top:22px;padding:18px 22px;
+    background:var(--panel);border:1px solid var(--line-faint);
+    border-left:1px solid var(--accent);border-radius:10px;
+    font-size:13.5px;line-height:1.7;
+  }
+  .note .kicker{display:block;margin-bottom:7px;color:var(--accent)}
+
+  figure{margin:26px 0 0;max-width:900px}
+  figure img{
+    width:100%;height:auto;display:block;border-radius:12px;
+    border:1px solid var(--line-faint);
+  }
+  figcaption{margin-top:10px;font-size:12px;color:var(--txt-low);line-height:1.65}
+
+  /* ── key table ───────────────────────────────── */
+  .keys{padding:76px 0 0;scroll-margin-top:84px}
+  .keys h2{font-size:27px;letter-spacing:-.01em;margin-bottom:8px}
+  .key-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:26px;
+  }
+  .key-card{
+    background:var(--panel);border:1px solid var(--line-faint);border-radius:12px;
+    padding:24px 26px;
+  }
+  .key-card .kicker{display:block;margin-bottom:14px}
+  .key-row{display:flex;gap:14px;align-items:baseline;padding:5px 0;font-size:13px}
+  .key-row kbd{flex:0 0 96px;text-align:center}
+  .key-row span{color:var(--txt-mid)}
+
+  /* ── final ───────────────────────────────────── */
+  .final{padding:92px 0 88px}
+  .final h2{font-size:30px;letter-spacing:-.015em;margin-bottom:14px}
+  .final p{max-width:640px;margin-bottom:26px;font-size:14.5px}
+  .btn{
+    background:var(--txt-hi);color:#0B0B0D;border:none;border-radius:999px;
+    padding:13px 24px;font-size:14px;font-weight:600;cursor:pointer;
+    font-family:inherit;white-space:nowrap;transition:all .16s var(--ease);
+    text-decoration:none;display:inline-block;
+  }
+  .btn:hover{background:#fff;transform:translateY(-1px)}
+
+  footer{border-top:1px solid var(--line-faint);padding:36px 0 44px}
+  footer .compat{font-size:12px;color:var(--txt-low);max-width:680px;line-height:1.7;margin-bottom:14px}
+  footer .legal{font-size:11px;color:var(--txt-low);font-style:italic}
+  footer .row{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+  footer .wordmark{font-size:12px}
+
+  @media (max-width:860px){
+    .toc-list{grid-template-columns:1fr}
+    .key-grid{grid-template-columns:1fr}
+  }
+
+  /* ── print: the same document, on paper ──────────────────────────────
+     Inverted on purpose. A dark manual is unreadable printed and reads
+     wrong in a PDF viewer; the type, the kickers, the rules and the
+     structure are unchanged, so it is recognisably the same page. ── */
+  @media print{
+    :root{
+      --bg0:#fff; --bg1:#fff; --panel:#F6F6F4;
+      --line-faint:#E2E2DE; --line-strong:#C8C8C2;
+      --txt-hi:#101012; --txt-mid:#3A3A40; --txt-low:#77777E;
+      --accent:#8A6410;
+    }
+    @page{margin:16mm 15mm}
+    body{background:#fff;color:var(--txt-mid);font-size:10.5pt;line-height:1.55}
+    nav,.nav-cta,.final .btn{display:none}
+    .wrap{max-width:none;padding:0}
+    .hero{padding:0 0 18pt}
+    .hero h1{font-size:24pt;max-width:none}
+    .hero .sub{font-size:12pt;max-width:none}
+    .print-only{display:block !important}
+    .toc{padding:0 0 6pt;break-after:page}
+    .toc-card{border:1px solid var(--line-faint);background:var(--panel)}
+    .toc-list a{color:var(--txt-mid)}
+    .step{padding:20pt 0 0;break-inside:auto}
+    .step-head{break-after:avoid}
+    .step h2{font-size:15pt;break-after:avoid}
+    .step p,.step .lead,ol.do,ul.do{max-width:none}
+    .note{background:var(--panel);border:1px solid var(--line-faint);
+      border-left:2pt solid var(--accent);break-inside:avoid}
+    figure{break-inside:avoid;max-width:none}
+    figure img{border:1px solid var(--line-faint)}
+    kbd{background:#fff;border:1px solid var(--line-strong);color:var(--txt-hi)}
+    .keys{break-before:page;padding:0}
+    .key-grid{grid-template-columns:repeat(2,1fr);gap:10pt}
+    .key-card{break-inside:avoid;background:var(--panel);border:1px solid var(--line-faint)}
+    .final{padding:22pt 0 0;break-inside:avoid}
+    footer{padding:16pt 0 0;break-inside:avoid}
+    a{text-decoration:none}
+  }
+  .print-only{display:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="wordmark" href="index.html">Raw<span>Stage</span></a>
+    <div class="nav-right">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-cta" href="index.html#download">Download beta</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <span class="kicker">Getting started</span>
+  <h1>From the disk image to your first tethered frame.</h1>
+  <p class="sub">Everything you need to run a real session in RawStage:
+  open a folder, cull it, develop it, put a second screen to work, build a
+  look, and shoot straight into it with a Fujifilm body. Twenty minutes,
+  read once.</p>
+  <span class="micro">This describes beta 0.9 (build 21) on macOS 14 or
+  later. Nothing here is aspirational — every menu item, key and field
+  below is in the build you downloaded.
+  <span class="print-only">rawstage.app/start.html</span></span>
+</header>
+
+<section class="toc wrap">
+  <div class="toc-card">
+    <span class="kicker">What's here</span>
+    <ul class="toc-list">
+      <li><a href="#install"><b>01</b>Install and first launch</a></li>
+      <li><a href="#session"><b>02</b>The folder is the session</a></li>
+      <li><a href="#cull"><b>03</b>Culling with one hand</a></li>
+      <li><a href="#develop"><b>04</b>The develop panel</a></li>
+      <li><a href="#windows"><b>05</b>The two studio windows</a></li>
+      <li><a href="#mood"><b>06</b>MOOD — a look in one gesture</a></li>
+      <li><a href="#tether"><b>07</b>A tethered session with a Fuji</a></li>
+      <li><a href="#other"><b>08</b>Any other camera brand</a></li>
+      <li><a href="#export"><b>09</b>Export</a></li>
+      <li><a href="#sixty"><b>10</b>The 60 days, and what happens after</a></li>
+      <li><a href="#shortcuts"><b>11</b>Every keyboard shortcut</a></li>
+      <li><a href="#help"><b>12</b>When something goes wrong</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 01 ───────────────────────────────────────── -->
+<section class="step wrap" id="install">
+  <div class="step-head"><span class="step-num">01</span></div>
+  <h2>Install and first launch</h2>
+  <p class="lead">RawStage is signed with an Apple Developer ID and notarized
+  by Apple, so macOS opens it without an argument and without a trip to
+  System Settings.</p>
+  <ol class="do">
+    <li>Open <b>RawStage-beta.dmg</b> and drag <b>RawStage</b> into your
+    <b>Applications</b> folder.</li>
+    <li>Eject the disk image, then launch RawStage from Applications.</li>
+    <li>The first launch shows the standard macOS confirmation that the app
+    was downloaded from the internet. Click <b>Open</b>. It never asks
+    again.</li>
+  </ol>
+  <div class="note">
+    <span class="kicker">There is no licence key</span>
+    Nothing to activate, no account, no sign-in. The build carries a 60-day
+    clock and every tool — Pro included — is open while it runs. See
+    <a href="#sixty">section 10</a> for exactly what changes when it ends.
+  </div>
+</section>
+
+<!-- 02 ───────────────────────────────────────── -->
+<section class="step wrap" id="session">
+  <div class="step-head"><span class="step-num">02</span></div>
+  <h2>The folder is the session</h2>
+  <p class="lead">There is no catalog and no import. A session is a folder on
+  your disk, and RawStage writes what you do into small JSON sidecar files
+  next to your RAWs. Move the folder, archive it, open it in ten years —
+  everything travels with the photographs.</p>
+  <ul class="do">
+    <li><kbd>⌘O</kbd> <b>Open Session…</b> — point it at a folder that already
+    has photographs in it. That is the whole import step.</li>
+    <li><kbd>⌘N</kbd> <b>New Session…</b> — creates an empty folder ready to
+    receive frames. You choose a name, a location and a capture naming
+    pattern here.</li>
+    <li><kbd>⇧⌘N</kbd> <b>Start Tether Session…</b> — the same thing, but it
+    opens straight into the Tether room waiting for the camera. See
+    <a href="#tether">section 07</a>.</li>
+    <li><b>File → Open Recent</b> keeps the last sessions. A folder that moved
+    or was deleted shows dimmed rather than disappearing.</li>
+    <li>You can also <b>drag a folder onto the window</b> at any moment. That
+    opens it as a session.</li>
+  </ul>
+  <p>Once a session is open, the window has three rooms and you move between
+  them with <kbd>⌘1</kbd> <kbd>⌘2</kbd> <kbd>⌘3</kbd> — or simply
+  <kbd>G</kbd>, <kbd>D</kbd>, <kbd>T</kbd> for Grid, Develop and Tether.
+  <b>File → Reveal Session in Finder</b> takes you to the folder itself
+  whenever you want to see what is actually on disk.</p>
+</section>
+
+<!-- 03 ───────────────────────────────────────── -->
+<section class="step wrap" id="cull">
+  <div class="step-head"><span class="step-num">03</span></div>
+  <h2>Culling with one hand</h2>
+  <p class="lead">The grid is built to be driven from the keyboard while the
+  other hand holds a coffee or a camera. Every key below works in the grid
+  and in Develop.</p>
+  <ul class="do">
+    <li><kbd>←</kbd> <kbd>→</kbd> move through the session.</li>
+    <li><kbd>1</kbd>–<kbd>5</kbd> set a star rating, <kbd>0</kbd> clears it.</li>
+    <li><kbd>P</kbd> picks, <kbd>X</kbd> rejects. <kbd>⇧P</kbd> switches the
+    grid to <b>picks only</b>.</li>
+    <li><kbd>⌥1</kbd>–<kbd>⌥5</kbd> filter by rating (≥ that many stars);
+    <b>View → Filter by Rating → Off</b> clears it.</li>
+    <li><b>Photo → Color Tag</b> adds a colour label when stars and picks are
+    not enough.</li>
+    <li><kbd>⌘+</kbd> and <kbd>⌘−</kbd> grow and shrink the thumbnails.</li>
+    <li><kbd>⌘A</kbd> selects everything visible, <kbd>⇧⌘A</kbd> deselects.</li>
+  </ul>
+  <div class="note">
+    <span class="kicker">Nothing is moved or deleted</span>
+    A rejection is a flag in a sidecar, not a file operation. RawStage never
+    moves, renames or deletes your photographs.
+  </div>
+</section>
+
+<!-- 04 ───────────────────────────────────────── -->
+<section class="step wrap" id="develop">
+  <div class="step-head"><span class="step-num">04</span></div>
+  <h2>The develop panel</h2>
+  <p class="lead">Press <kbd>D</kbd> (or <kbd>⌘2</kbd>) on any photograph. The
+  panel on the right is the classic darkroom set, top to bottom, in the order
+  you actually work: <b>Histogram</b>, <b>White Balance</b>, <b>Exposure</b>,
+  <b>Color</b>, <b>Color Grading</b>, <b>Palette</b>, <b>Clarity</b>,
+  <b>Curve</b>, <b>Levels</b>, <b>Detail</b> and <b>Geometry</b>.</p>
+
+  <figure>
+    <img src="img/app-develop-after.jpg"
+         alt="The RawStage develop view: a photograph of a bay filling the window, with the develop panel on the right.">
+    <figcaption>The develop room. The photograph is the only bright thing on
+    the screen — that is deliberate, and it is why the panel is grey.</figcaption>
+  </figure>
+
+  <p>Four habits are worth building on day one:</p>
+  <ul class="do">
+    <li><b>Hold <kbd>\</kbd> to see the file underneath.</b> Press and hold
+    anywhere in the viewer and the photograph reverts to the RAW as shot;
+    release and your edit comes back. <b>View → Show Original</b> does the
+    same as a toggle.</li>
+    <li><b>Every module has an eye.</b> The small eye beside a section title
+    bypasses that section alone, so you can ask "is my Clarity actually
+    helping?" without undoing anything.</li>
+    <li><b><kbd>J</kbd> shows clipping.</b> Hold it and blown highlights and
+    crushed shadows are marked on the photograph.</li>
+    <li><b><kbd>R</kbd> resets the edit</b> on the current photograph, and the
+    <b>reset</b> beside each section title resets just that section.</li>
+  </ul>
+  <p>To carry an edit across the session: <kbd>⇧⌘C</kbd> copies the settings,
+  select the photographs you want and <kbd>⇧⌘V</kbd> pastes them.
+  <kbd>⌘Z</kbd> undoes the paste if it went somewhere you did not mean.
+  Geometry — crop, rotation, straightening — is never included: framing is
+  per photograph.</p>
+  <p>Two more keys that earn their place: <kbd>C</kbd> opens the crop with
+  ratio presets and corner rotation, and <kbd>⇥</kbd> hides all the chrome so
+  the photograph is alone on the screen. <kbd>Z</kbd> toggles zoom, and
+  <b>View → Zoom 100%</b> and <b>Zoom to Fit</b> are there when you want to be
+  precise about it.</p>
+</section>
+
+<!-- 05 ───────────────────────────────────────── -->
+<section class="step wrap" id="windows">
+  <div class="step-head"><span class="step-num">05</span></div>
+  <h2>The two studio windows</h2>
+  <p class="lead">Both live in the <b>Window</b> menu, both are free, and both
+  are real windows — drag them to a second screen and leave them there.</p>
+
+  <h3 style="margin-top:26px;font-size:16.5px">Viewer — <kbd>⌥⌘V</kbd></h3>
+  <p>A window with nothing in it but the photograph: no panel, no filmstrip,
+  no title. It is what you turn towards the client or the art director.
+  <b>Window → Viewer Source</b> decides what it shows:</p>
+  <ul class="do">
+    <li><b>Current Selection</b> — it follows you as you navigate. Use this
+    when you are reviewing together.</li>
+    <li><b>Last Capture</b> — it always shows the newest frame off the camera.
+    Use this while you are shooting, so the client sees the shot you just
+    took while you are still working on an earlier one.</li>
+  </ul>
+
+  <figure>
+    <img src="img/app-viewer.jpg"
+         alt="The Viewer window filling a second screen with a single photograph and no interface around it.">
+    <figcaption>The Viewer on a second screen. Nothing to explain, nothing to
+    accidentally click.</figcaption>
+  </figure>
+
+  <h3 style="margin-top:34px;font-size:16.5px">Focus Check — <kbd>⌥⌘F</kbd></h3>
+  <p>The instrument that answers the one question you cannot fix later: was
+  it the eye, or the eyelash?</p>
+  <ul class="do">
+    <li>It opens at <b>100%</b> and steps through <b>50% · 100% · 200% ·
+    400%</b>. With the Focus Check window in front, <kbd>⌘+</kbd> and
+    <kbd>⌘−</kbd> step the zoom instead of the thumbnails.</li>
+    <li>Drag inside it to pan. The window is resizable — make it as big as
+    the screen you put it on.</li>
+    <li>The <b>Peaking</b> switch in the floating control paints magenta over
+    the detail that is genuinely sharp, and the slider beside it sets how
+    fussy that judgement is.</li>
+  </ul>
+  <div class="note">
+    <span class="kicker">Why peaking sometimes waits</span>
+    Peaking only draws at 100% and above, and only once the sharp render has
+    arrived. An overlay computed on a scaled-down preview measures detail the
+    scaling already destroyed — it would light up a soft frame and tell you it
+    was sharp. Below 1:1 the switch stays quiet on purpose. The resolution of
+    the overlay is the resolution of the answer.
+  </div>
+
+  <figure>
+    <img src="img/app-focus-peaking.jpg"
+         alt="A profile portrait at 100% in the Focus Check window, with focus peaking painting the glasses, lashes and lip in magenta.">
+    <figcaption>Focus Check at 100% with peaking on. The glasses, the lashes
+    and the lip are lit; the cheek falling away is not.</figcaption>
+  </figure>
+</section>
+
+<!-- 06 ───────────────────────────────────────── -->
+<section class="step wrap" id="mood">
+  <div class="step-head"><span class="step-num">06</span></div>
+  <h2>MOOD — a look in one gesture</h2>
+  <p class="lead">The <b>Palette</b> section has two modes, and they answer two
+  different questions. <b>Image</b> adjusts the colours the photograph already
+  has. <b>MOOD</b> imposes colours on it, one per tonal band. Grading wheels
+  push tones around; MOOD decides what colour the shadows, the midtones and
+  the highlights <em>are</em>.</p>
+
+  <p><b>To turn it on:</b> in the develop panel, find <b>PALETTE</b> and click
+  the <b>Mood</b> tab. That is the whole activation — there is no separate
+  module to enable.</p>
+
+  <p>What you then have, top to bottom:</p>
+  <ul class="do">
+    <li><b>Color · Soft Light · Screen</b> — how the imposed colour composites
+    onto the photograph. <b>Color</b> is a veil: hue and chroma only, tone
+    untouched. <b>Soft Light</b> and <b>Screen</b> move the tone along with
+    the colour, the way a gel or a lifted black would.</li>
+    <li><b>Shadows</b>, <b>Midtones</b>, <b>Highlights</b>, <b>General Tone</b>
+    — four rows. Click the colour well on the right of a row and the hue disc
+    opens: drag the puck to choose the colour, further from the centre for
+    more chroma. The <b>Strength</b> slider under it (0–100) says how much of
+    that colour lands. General Tone acts everywhere and its slider is called
+    <b>Amount</b>.</li>
+    <li><b>Tone</b> (−100 to +100) is the mood's own contrast. It lives inside
+    the module — the section's reset and its bypass eye cover it, and it never
+    writes into your Curve.</li>
+    <li><b>From Image…</b> reads another photograph's palette and plants it in
+    the four targets. You can also drop an image file straight onto the
+    button. It is a seed, not a link: the image is read once, its colours are
+    planted, and nothing about it is kept.</li>
+    <li><b>Show Mask</b> paints the pixels the active band is holding, so you
+    can see what you are colouring before you commit to it.</li>
+  </ul>
+
+  <figure>
+    <img src="img/app-mask-tight.jpg"
+         alt="A landscape in the RawStage develop view where a pink overlay marks every pixel the palette's colour range is holding.">
+    <figcaption>Show Mask. The pink is not the edit — it is the selection, so
+    you stop guessing why the sky moved.</figcaption>
+  </figure>
+
+  <div class="note">
+    <span class="kicker">A working order</span>
+    Get exposure and white balance right first, then reach for MOOD, then
+    refine individual colours in <b>Image</b> mode on top. MOOD is applied
+    first in the engine and the swatch adjustments refine what it produced —
+    working in that order means the panel behaves the way the picture does.
+  </div>
+</section>
+
+<!-- 07 ───────────────────────────────────────── -->
+<section class="step wrap" id="tether">
+  <div class="step-head"><span class="step-num">07</span></div>
+  <h2>A tethered session with a Fujifilm camera</h2>
+  <p class="lead">Fujifilm X and GFX bodies talk to RawStage directly — no
+  X Acquire, no Capture One, nothing else running. Frames land in the session
+  in roughly a third of a second.</p>
+
+  <h3 style="margin-top:26px;font-size:16.5px">On the camera</h3>
+  <ol class="do">
+    <li>Set the USB mode to <b>USB TETHER SHOOTING AUTO</b>. On most X and GFX
+    bodies that is <b>SET UP → CONNECTION SETTING → USB MODE</b> (some bodies
+    call it <b>PC CONNECTION MODE</b>). This is the one camera setting that
+    matters.</li>
+    <li>Use a cable that carries data. A charging-only USB-C cable will power
+    the camera and never appear on the Mac — it is the single most common
+    reason a tether "doesn't work".</li>
+    <li>Plug the camera into the Mac directly if you can. Hubs work, but they
+    are the first thing to remove when something is flaky.</li>
+  </ol>
+
+  <h3 style="margin-top:34px;font-size:16.5px">In RawStage</h3>
+  <ol class="do">
+    <li>Press <kbd>⇧⌘N</kbd> — <b>Start Tether Session…</b>. Name the session,
+    choose where it lives, and set a capture naming pattern if you want one
+    (a prefix and a counter, for example <b>MARG-0001</b>).</li>
+    <li>If the camera is already connected, <b>Start tethered capture</b> is
+    on by default and the panel tells you which body it found.</li>
+    <li>You land in the Tether room. The pill at the top right is the HUD: the
+    camera's name, the number of captures, and the milliseconds from the last
+    shutter click to the picture appearing.</li>
+    <li>Shoot. Each frame arrives, develops with the session's settings, and
+    is ready to judge. <kbd>←</kbd> <kbd>→</kbd> review, <kbd>P</kbd> and
+    <kbd>X</kbd> pick and reject, <kbd>Z</kbd> zooms, <kbd>⇥</kbd> clears the
+    chrome.</li>
+  </ol>
+
+  <figure>
+    <img src="img/app-grade-after.jpg"
+         alt="The RawStage window during a session, with the colour grading panel open on the right.">
+    <figcaption>The session, mid-flight. Every capture arrives already
+    carrying the session's settings.</figcaption>
+  </figure>
+
+  <h3 style="margin-top:34px;font-size:16.5px">Session settings — the part
+  that makes tethering worth it</h3>
+  <p>At the bottom of the develop panel is a button with three states. Press
+  it to move through them:</p>
+  <ul class="do">
+    <li><b>Set as session settings</b> — off. New captures inherit
+    nothing.</li>
+    <li><b>Session settings: following</b> — what is on screen <em>is</em>
+    what the next capture will inherit, and every adjustment you make updates
+    it. Light the first frame, get it right, and the rest of the session
+    arrives already looking like that.</li>
+    <li><b>Session settings: frozen</b> — the current settings keep being
+    inherited but stop following your adjustments. Reopening a session always
+    returns it frozen, so nothing changes behind your back.</li>
+  </ul>
+  <p>Only <em>adjustments</em> move the settings. Walking through the session
+  with follow on changes nothing — that was a deliberate fix, because
+  otherwise a pass through the culling would contaminate the whole shoot. And
+  geometry is never inherited: crop and rotation are composition, per frame.</p>
+
+  <div class="note">
+    <span class="kicker">The trick worth knowing</span>
+    Open <b>Focus Check</b> (<kbd>⌥⌘F</kbd>), zoom to 100% and put it on the
+    model's eye. With tethering live, every new capture keeps that zoom and
+    that pan — so each shot lands on the same point and you can see the focus
+    fall, frame after frame, without touching anything.
+  </div>
+
+  <p>Unplug the camera, let it sleep, pull the cable by accident — the session
+  does not care. Reconnect and captures resume where they left off.</p>
+</section>
+
+<!-- 08 ───────────────────────────────────────── -->
+<section class="step wrap" id="other">
+  <div class="step-head"><span class="step-num">08</span></div>
+  <h2>Any other camera brand</h2>
+  <p class="lead">Native tethering is Fujifilm-first today. Every other brand
+  gets there through a <b>hot folder</b>, and the experience inside RawStage is
+  identical once the file lands.</p>
+  <ol class="do">
+    <li>Start your camera maker's own tether utility and point its download
+    folder at the session folder.</li>
+    <li>Start a tether session in RawStage on that same folder.</li>
+    <li>Shoot. Files appear in the session as they arrive — RawStage waits
+    until a file has finished copying before it touches it, and reads the
+    camera's name out of the file's own EXIF, so the HUD says something like
+    <b>Sony α7R III · hot folder</b> rather than a generic label.</li>
+  </ol>
+  <div class="note">
+    <span class="kicker">Sony owners: one measurement, not a promise</span>
+    A Sony α7R IV has fed RawStage directly, with no Sony software running —
+    one body, one session, four frames. If you want to try it: <b>PC Remote:
+    Off</b> and <b>USB Connection: MTP</b> (not Auto). PC Remote switched on is
+    what stops it, and the "PC" that then appears on the camera's screen is the
+    failure, not the confirmation. Canon is next on the bench. If you have a
+    body that isn't a Fuji, <b>Help → Export Logs</b> and a note about what
+    happened is the most useful thing you can send us.
+  </div>
+</section>
+
+<!-- 09 ───────────────────────────────────────── -->
+<section class="step wrap" id="export">
+  <div class="step-head"><span class="step-num">09</span></div>
+  <h2>Export</h2>
+  <p class="lead"><kbd>⌘E</kbd> opens the export panel over whatever you have
+  selected.</p>
+  <ul class="do">
+    <li><b>Source</b> — Selected, Picks, Filtered or All, each with its count
+    beside it. If you are in picks-only view, Picks is already chosen.</li>
+    <li><b>Format</b> — JPEG and PNG are free. TIFF (8 and 16-bit) and HEIC
+    are Pro, and open during the 60 days.</li>
+    <li><b>Size</b> — Original, long edge in pixels, exact width × height, or
+    <b>print in centimetres at a DPI</b>, with the resulting pixels calculated
+    in front of you.</li>
+    <li><b>Color space</b> — sRGB by default; Display P3 and Adobe RGB are
+    Pro.</li>
+    <li><b>Destination</b> — an <b>Export</b> subfolder inside the session by
+    default, so the output travels with the session, or any folder you
+    choose.</li>
+    <li><b>Presets</b> — Instagram post, square and story, Facebook, web,
+    full-resolution JPEG, print at 300 DPI, and a Photoshop-ready 16-bit
+    TIFF.</li>
+  </ul>
+  <p>Exports run in the background with a progress pill in the chrome, and you
+  can carry on working — or cancel.</p>
+</section>
+
+<!-- 10 ───────────────────────────────────────── -->
+<section class="step wrap" id="sixty">
+  <div class="step-head"><span class="step-num">10</span></div>
+  <h2>The 60 days, and what happens after</h2>
+  <p class="lead">This build has everything unlocked for 60 days. It matters
+  more what happens at the end than what happens now, so here it is plainly.</p>
+  <p><b>What keeps working, free, forever:</b> culling, tethered capture, both
+  studio windows, the whole classic develop panel — white balance, exposure,
+  curves, levels, clarity, vignette, sharpening, noise reduction, crop and
+  geometry — copy and paste settings, and export to JPEG and PNG.</p>
+  <p><b>What locks:</b> the colour grading wheels, the Palette editor and
+  MOOD, LUTs and saved presets, and the professional export formats — 16-bit
+  TIFF, HEIC, print sizing, Display P3 and Adobe RGB.</p>
+  <div class="note">
+    <span class="kicker">Nothing you made is taken back</span>
+    The Pro settings already saved in your sidecars stay exactly where they
+    are. They keep rendering on screen and they keep coming out in your
+    exports — you simply stop being able to change them until you buy Pro.
+    Loading preserves; applying creates. That distinction is written into the
+    app, and it is the reason a session you shot during the beta is still a
+    session you can deliver afterwards.
+  </div>
+</section>
+
+<!-- 11 ───────────────────────────────────────── -->
+<section class="keys wrap" id="shortcuts">
+  <div class="step-head"><span class="step-num">11</span></div>
+  <h2>Every keyboard shortcut</h2>
+  <p class="micro" style="display:block;max-width:740px">The same list lives in
+  the app under <b>Help → Keyboard Shortcuts</b>, and the hints along the
+  bottom of the window are the short version.</p>
+  <div class="key-grid">
+    <div class="key-card">
+      <span class="kicker">Session</span>
+      <div class="key-row"><kbd>⌘N</kbd><span>New Session…</span></div>
+      <div class="key-row"><kbd>⇧⌘N</kbd><span>Start Tether Session…</span></div>
+      <div class="key-row"><kbd>⌘O</kbd><span>Open Session…</span></div>
+      <div class="key-row"><kbd>⌘E</kbd><span>Export…</span></div>
+    </div>
+    <div class="key-card">
+      <span class="kicker">View</span>
+      <div class="key-row"><kbd>⌘1 ⌘2 ⌘3</kbd><span>Grid, Develop, Tether</span></div>
+      <div class="key-row"><kbd>G D T</kbd><span>Grid, Develop, Tether</span></div>
+      <div class="key-row"><kbd>Z</kbd><span>Zoom</span></div>
+      <div class="key-row"><kbd>⇥</kbd><span>Clean view</span></div>
+      <div class="key-row"><kbd>J</kbd><span>Clipping warnings</span></div>
+      <div class="key-row"><kbd>\</kbd><span>Show the original</span></div>
+      <div class="key-row"><kbd>⌘+ ⌘−</kbd><span>Thumbnail size — or Focus Check zoom</span></div>
+    </div>
+    <div class="key-card">
+      <span class="kicker">Culling</span>
+      <div class="key-row"><kbd>1–5</kbd><span>Rating</span></div>
+      <div class="key-row"><kbd>0</kbd><span>No rating</span></div>
+      <div class="key-row"><kbd>P</kbd><span>Pick</span></div>
+      <div class="key-row"><kbd>X</kbd><span>Reject</span></div>
+      <div class="key-row"><kbd>⇧P</kbd><span>Picks only</span></div>
+      <div class="key-row"><kbd>⌥1–⌥5</kbd><span>Filter by rating</span></div>
+      <div class="key-row"><kbd>←→</kbd><span>Navigate</span></div>
+    </div>
+    <div class="key-card">
+      <span class="kicker">Editing</span>
+      <div class="key-row"><kbd>⇧⌘C</kbd><span>Copy settings</span></div>
+      <div class="key-row"><kbd>⇧⌘V</kbd><span>Paste settings</span></div>
+      <div class="key-row"><kbd>⌘Z</kbd><span>Undo paste</span></div>
+      <div class="key-row"><kbd>⌘A</kbd><span>Select all</span></div>
+      <div class="key-row"><kbd>⇧⌘A</kbd><span>Deselect all</span></div>
+      <div class="key-row"><kbd>C</kbd><span>Crop</span></div>
+      <div class="key-row"><kbd>⌘[ ⌘]</kbd><span>Rotate left / right</span></div>
+      <div class="key-row"><kbd>R</kbd><span>Reset edits</span></div>
+    </div>
+    <div class="key-card">
+      <span class="kicker">Windows</span>
+      <div class="key-row"><kbd>⌥⌘V</kbd><span>Viewer window</span></div>
+      <div class="key-row"><kbd>⌥⌘F</kbd><span>Focus Check</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 ───────────────────────────────────────── -->
+<section class="step wrap" id="help">
+  <div class="step-head"><span class="step-num">12</span></div>
+  <h2>When something goes wrong</h2>
+  <p class="lead">This is a beta and you are one of the people it is for. Two
+  items in the <b>Help</b> menu are the whole reporting workflow:</p>
+  <ul class="do">
+    <li><b>Help → Send Feedback…</b> opens a message with the build number
+    already filled in. Tell us what you were doing and what happened.</li>
+    <li><b>Help → Export Logs…</b> writes the technical story to a single
+    file. Attaching it turns "the tether stopped" into something we can
+    actually fix.</li>
+  </ul>
+  <p>The single most useful report you can send: plug in your camera, tell us
+  the model name, and say whether tethering worked. Then run one real session
+  end to end — shoot, cull, develop, export — and tell us what stuttered or
+  surprised you.</p>
+</section>
+
+<section class="final wrap">
+  <h2>That's the whole app.</h2>
+  <p>Open a folder and shoot something. If a step here doesn't match what you
+  see on screen, that is a bug in this page and we want to hear about it.</p>
+  <a class="btn" href="index.html#download">Download the beta</a>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="compat">Opens RAW files from all major camera brands (RAF, ARW,
+    CR3, NEF, DNG and more). Native tethered capture is compatible with
+    Fujifilm X and GFX cameras; any camera that can write to a watched folder
+    works via hot folder. Requires macOS 14 or later; Apple silicon
+    recommended (all performance figures are M-series), Intel untested.</p>
+    <div class="row">
+      <p class="legal">RawStage is an independent product and is not
+      affiliated with or endorsed by Fujifilm, Sony, Canon or any camera
+      manufacturer.</p>
+      <a class="wordmark" href="index.html">Raw<span>Stage</span></a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

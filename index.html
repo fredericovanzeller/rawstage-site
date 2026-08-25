@@ -63,6 +63,9 @@
     transition:all .16s var(--ease);
   }
   .nav-cta:hover{background:rgba(255,255,255,.08)}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  .nav-link{font-size:13px;color:var(--txt-mid);text-decoration:none}
+  .nav-link:hover{color:var(--txt-hi)}
 
   /* ── hero ────────────────────────────────────── */
   .hero{padding:96px 0 56px;text-align:center}
@@ -237,7 +240,10 @@
 <nav>
   <div class="wrap nav-inner">
     <a class="wordmark" href="#">Raw<span>Stage</span></a>
-    <a class="nav-cta" href="#download">Download beta</a>
+    <span class="nav-right">
+      <a class="nav-link" href="start.html">Get started</a>
+      <a class="nav-cta" href="#download">Download beta</a>
+    </span>
   </div>
 </nav>
 
@@ -539,6 +545,9 @@
   });
   </script>
   <p class="micro" style="display:block;max-width:660px;margin:26px auto 0;line-height:1.75">
+  New to it? <a href="start.html" style="color:#E8E8EA">Getting started</a>
+  walks through a first session end to end — including the one camera setting a
+  Fujifilm tether needs.<br><br>
   What helps us most: plug in your camera and tell us whether tether works —
   the model name is half the report. Then run one real session end to end:
   shoot, cull, develop, export. If anything stutters or surprises you,
