@@ -233,7 +233,7 @@
   <div class="waitlist">
     <a class="btn" href="#download">Download the beta</a>
   </div>
-  <span class="micro">Free while in beta. No catalog. No cloud. Your folder is the session.</span>
+  <span class="micro">Everything unlocked for 60 days. No catalog. No cloud. Your folder is the session.</span>
   <div><span class="beta-dot"><i></i>Beta 0.9 — macOS 14+ · Apple silicon</span></div>
 </header>
 
@@ -292,7 +292,7 @@
     <div class="room">
       <span class="kicker">Develop</span>
       <h3>The classic darkroom panel. Nothing you won't use.</h3>
-      <p>White balance, exposure, curves, levels, color — the full
+      <p>White balance, exposure, curves, levels, colour — the full
       traditional toolset, rendering as fast as you can move a slider.
       Every edit lives in a small sidecar file next to your RAW:
       portable, readable, yours.</p>
@@ -334,7 +334,7 @@
     </figure>
   </div>
 
-  <span class="kicker" style="display:block;margin-top:44px">Being built now — the Pro color engine</span>
+  <span class="kicker" style="display:block;margin-top:44px">In this build — the Pro colour engine</span>
   <div style="display:grid;gap:22px;margin-top:22px">
     <figure style="margin:0">
       <img src="img/app-grade-after.jpg"
@@ -364,8 +364,9 @@
   </div>
 
   <p class="micro" style="margin-top:18px">
-    The two above are from the Pro engine in development — they are not in the
-    beta you can download today. What ships free is everything in the first two shots.
+    The two above are the Pro colour engine — and it is unlocked in the beta you
+    can download today, for the 60 days this build runs. The first two shots are the
+    free half, and that half stays free.
   </p>
 
   <script>
@@ -445,35 +446,40 @@
   <h2>What's in the box today.</h2>
   <div class="room-row">
     <div class="room">
-      <span class="kicker">Works now</span>
-      <p>Native USB tether for Fujifilm X / GFX (tested end-to-end on a
-      GFX100S — sleep, cable pulls, bursts). Hot-folder tether for any
-      brand. Instant culling grid with keyboard ratings, flags, color
-      tags and filters. The full classic develop panel: white balance
-      with eyedropper, exposure to blacks, luma + RGB curves, levels,
-      clarity, vignette, sharpening and noise reduction, single-pixel
-      (hot pixel) removal, crop with corner rotation. Copy/paste
-      settings across selections. Session look that follows your edits
-      in tether. Export to JPEG, PNG, TIFF-16 and HEIC.</p>
+      <span class="kicker">The free core</span>
+      <p>Native USB tether for Fujifilm X / GFX (tested end to end on a
+      GFX100S — sleep, cable pulls, bursts) and a hot-folder tether for any
+      other brand, which now names the body feeding it. Instant culling grid
+      with keyboard ratings, flags, colour tags and filters. The full classic
+      develop panel: white balance with eyedropper, exposure through blacks,
+      luma and RGB curves with a targeted adjustment tool, levels, clarity,
+      vignette, sharpening, noise reduction, single-pixel removal, crop with
+      corner rotation. A before/after eye on every module. Two studio windows
+      for a second screen: a chrome-free viewer for the client, and a focus
+      check that magnifies to 400%, with focus peaking to show you exactly
+      where the plane of focus fell. Copy and paste settings across a
+      selection. Export to JPEG and PNG.</p>
+    </div>
+    <div class="room">
+      <span class="kicker">Pro — unlocked in this build</span>
+      <p>The whole colour engine, open to every tester: four grading wheels
+      with tonal ranges you can move and saturation per band, the PALETTE
+      editor for reaching into one colour without disturbing its neighbours,
+      MOOD for imposing a palette by tonal band, and the professional export
+      formats — TIFF 16-bit, HEIC, print sizing, Display P3 and Adobe RGB.
+      Every beta build carries a 60-day clock; when it runs out the Pro tools
+      lock and everything above keeps working. Nothing you edited is lost:
+      your settings stay in your session, still applied, still exporting.</p>
     </div>
     <div class="room">
       <span class="kicker">Not yet</span>
-      <p>The Pro color engine — grading wheels, palette-based color
-      editing, film-style looks, masks — is in development; see the
-      roadmap below. UI is English for now — Portuguese is
-      on the way. Native tether is verified on GFX100S; other recent
-      X / GFX bodies should work over the same protocol — that's part
-      of what this beta is for. Beta builds expire after ~60 days;
-      grab the newest one here.</p>
-    </div>
-    <div class="room">
-      <span class="kicker">What we'd love from you</span>
-      <p>Plug in your camera body and tell us if tether works — the
-      model name is half the report. Run one real session end-to-end:
-      shoot, cull, develop, export. If anything feels slow, stutters or
-      surprises you, use <b>Help&nbsp;→&nbsp;Send Feedback</b> in the
-      app — <b>Help&nbsp;→&nbsp;Export Logs</b> attaches the technical
-      story in one file.</p>
+      <p>Masks, MATCH, the LUT engine, film grain and halation — all designed,
+      none of them shipping today. The interface is English for now;
+      Portuguese is on the way. Native tether is verified on a GFX100S, and
+      other recent X / GFX bodies should speak the same protocol — that is
+      part of what this beta is for. Sony, Canon and the rest go through the
+      hot folder, fed by the camera maker's own tether utility, until native
+      support for them is built.</p>
     </div>
   </div>
 </section>
@@ -482,9 +488,10 @@
   <h2>Download the beta.</h2>
   <p>Signed and notarized. <b style="color:#E8E8EA">Requires macOS 14 (Sonoma)
   or later.</b> Built and measured on Apple silicon; the binary is universal,
-  so Intel Macs run it too — untested, brave owners welcome. Free while in
-  beta — no license key. Leave your email and the download unlocks;
-  we'll also ping you when new builds land.</p>
+  so Intel Macs run it too — untested, brave owners welcome. No licence key
+  and nothing to buy: every tool in the app, Pro included, is unlocked while
+  this build's 60-day clock runs. Leave your email and the download unlocks;
+  we'll also tell you when new builds land.</p>
   <form class="waitlist" id="gate-form">
     <input type="email" name="email" required placeholder="your@email.com" aria-label="Email address">
     <button class="btn" type="submit" id="gate-btn">Unlock download</button>
@@ -514,41 +521,59 @@
     }
   });
   </script>
+  <p class="micro" style="display:block;max-width:660px;margin:26px auto 0;line-height:1.75">
+  What helps us most: plug in your camera and tell us whether tether works —
+  the model name is half the report. Then run one real session end to end:
+  shoot, cull, develop, export. If anything stutters or surprises you,
+  <b>Help&nbsp;→&nbsp;Send Feedback</b> is in the app, and
+  <b>Help&nbsp;→&nbsp;Export Logs</b> attaches the technical story in one file.</p>
 </section>
 
 
-<section class="rooms wrap" id="roadmap">
-  <span class="kicker">Where this is going</span>
-  <h2>What stays free. What becomes Pro.</h2>
+<section class="rooms wrap" id="pro">
+  <span class="kicker">RawStage Pro</span>
+  <h2>The free app shoots and culls. Pro develops.</h2>
+  <p style="max-width:740px;margin:14px 0 4px;color:#A7A7AE;font-size:17px;line-height:1.75">
+  Everything below is built, measured and running in this beta — unlocked for
+  every tester while the build's clock runs. When it ships, it is one purchase.
+  Never a subscription.</p>
   <div class="room-row">
     <div class="room">
-      <span class="kicker">Free, forever</span>
-      <h3>What you're testing now</h3>
-      <p>The beta you're running <i>is</i> the free version — and it
-      stays that way. Native Fujifilm tether and hot-folder capture,
-      the instant culling grid, the full classic develop panel, and
-      export to JPEG, PNG, TIFF-16 and HEIC. Nothing you rely on
-      today moves behind a paywall.</p>
+      <span class="kicker">Colour grading</span>
+      <h3>Four wheels — and the ranges are yours.</h3>
+      <p>Master, shadows, midtones and highlights, each with a full-size wheel
+      and its own saturation, lifting in octaves instead of arbitrary units so
+      the same number means the same thing everywhere. The part no one else
+      hands you: the tonal ranges themselves move. Decide where your shadows
+      end and your highlights begin, on this photograph, not on a factory
+      average. Set the dials to neutral and the file comes out bit for bit
+      untouched — the grade is off, not merely quiet.</p>
     </div>
     <div class="room">
-      <span class="kicker">In development</span>
-      <h3>The Pro color engine</h3>
-      <p>Being built right now: professional color grading — master
-      and three-way wheels with per-band range control, tuned on real
-      sessions; a palette-based way of editing color we think you
-      haven't seen before; film-style looks as LUTs, picked
-      automatically per film-simulation setting read from your files;
-      then masks and export recipes.</p>
+      <span class="kicker">Palette</span>
+      <h3>Reach into one colour. Leave the rest alone.</h3>
+      <p>Pick a colour out of the photograph and move its hue, saturation and
+      luminance, with a range and a feather you control and a mask you can see
+      while you work. Nine colours at once, in a single pass, without bleeding
+      into their neighbours. And MOOD: impose a palette on shadows, midtones
+      and highlights, then composite it like a layer — colour, soft light or
+      screen — for a look that lands in one gesture instead of twenty.</p>
     </div>
     <div class="room">
       <span class="kicker">One price, once</span>
-      <h3>Bought, not rented</h3>
-      <p>RawStage Pro will be a one-time purchase, no subscription,
-      ever — price announced at launch, and beta testers get founder
-      pricing. That's the thank-you. The free version isn't a trial;
-      it's a promise.</p>
+      <h3>Bought, not rented.</h3>
+      <p>Pro is a one-time purchase. No subscription, ever. Culling, tethering,
+      the studio windows and the classic develop panel stay free — that half of
+      the app is not a trial with a countdown on it. Beta testers get founder
+      pricing at launch: that is the thank-you, and it is the only thing the
+      email address is for.</p>
     </div>
   </div>
+  <p class="micro" style="display:block;margin:24px 0 0;line-height:1.75">
+  Next into Pro, in this order: masks — a list of masked adjustments, each with
+  its own before/after eye; MATCH — edit one frame, match the session; a LUT
+  engine with looks built by a working photographer; and film grain and
+  halation that behave like emulsion rather than like noise.</p>
 </section>
 
 <section class="founder wrap">
