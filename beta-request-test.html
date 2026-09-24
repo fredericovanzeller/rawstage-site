@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex,nofollow">
+  <title>RawStage — beta request acceptance test</title>
+  <style>
+    :root{color-scheme:dark}body{margin:0;background:#101012;color:#e8e8ea;font:17px/1.6 system-ui,sans-serif}
+    main{max-width:580px;margin:auto;padding:40px 24px}a{color:inherit;text-underline-offset:4px}
+    input,button{font:inherit;box-sizing:border-box;border-radius:9px;padding:12px}
+    input{width:100%;margin:8px 0 20px;background:#202023;border:1px solid #777;color:inherit}
+    button{background:#d9a441;border:0;color:#101012;font-weight:600;cursor:pointer;margin-top:16px}
+    button:disabled{opacity:.5;cursor:not-allowed}.trap{position:absolute;left:-10000px}
+    :focus-visible{outline:2px solid #d9a441;outline-offset:4px}small{display:block;margin:20px 0}[hidden]{display:none!important}
+  </style>
+</head>
+<body><main>
+  <a href="index.html">RawStage</a>
+  <h1>Beta email delivery test.</h1>
+  <p><strong>Pre-launch acceptance test.</strong> This page is public but is not linked from our navigation. Please use it only if Frederico has invited you to test this flow. It sends real confirmation and download emails, not a simulation. The new website is not launched yet.</p>
+  <p>Confirm your email to receive the download link. Announcements are a separate, optional subscription.</p>
+  <p id="status" role="status" aria-live="polite">Signup is not open yet. Contact info@rawstage.app for help.</p>
+  <section id="choice" aria-labelledby="choice-title">
+    <h2 id="choice-title">Allow Google's anti-bot check?</h2>
+    <p>If you allow it, Google reCAPTCHA will load to check for automated requests.
+    It uses cookies and processes information about your browser and interaction,
+    including your IP address. It is not loaded before you choose.</p>
+    <p>This choice is separate from receiving update emails. You can refuse and
+    request the beta by email instead; no Google anti-bot check is needed for that route.</p>
+    <button id="allow" type="button" disabled>Allow Google reCAPTCHA</button>
+    <button id="decline" type="button">Continue without Google reCAPTCHA</button>
+  </section>
+  <section id="manual" hidden>
+    <h2>Request the beta by email</h2>
+    <p><a href="mailto:info@rawstage.app?subject=RawStage%20beta%20request">Email info@rawstage.app</a>.
+    Frederico will reply manually, so the link may take longer to arrive.
+    This does not subscribe you to announcements.</p>
+  </section>
+  <p id="withdrawal" hidden><button id="withdraw" type="button">Withdraw permission and reload</button><br>
+    Reloading stops this page loading reCAPTCHA again unless you allow it.
+    It does not undo data already sent to Google or delete cookies Google has set;
+    you can remove those in your browser settings.</p>
+  <!-- Set enabled only after backend deployment, privacy and live acceptance checks. -->
+  <form id="request" method="post" data-enabled="true" hidden
+    action="https://script.google.com/macros/s/AKfycbwu0knpjcRkzG0dQAX3MhjnmldLpr8oz06Kj614CUS6XF8Q8Nv7omQMP_fUKLXD9CN-Bw/exec">
+    <label for="email">Your email address</label>
+    <input id="email" name="email" type="email" required maxlength="254" autocomplete="email">
+    <div class="trap" aria-hidden="true"><label for="website">Leave empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+    <div id="captcha"></div>
+    <button id="send" type="submit" disabled>Send confirmation email</button>
+  </form>
+  <small>This form uses Google reCAPTCHA only after you allow it. Google processes
+  reCAPTCHA customer data on RawStage's behalf for security and abuse prevention.
+  See the <a href="beta-test-privacy.html#cookies">RawStage cookies notice</a> and
+  <a href="beta-test-privacy.html#beta">email-request information</a>. Only enter your own address.</small>
+  <p>Already testing? <a href="index.html#updates">Get the latest published build</a>.</p>
+  <noscript>JavaScript is required for the anti-bot check. Email info@rawstage.app for help.</noscript>
+  <script>
+    const form = document.getElementById('request');
+    const send = document.getElementById('send');
+    const status = document.getElementById('status');
+    const choice = document.getElementById('choice');
+    const allow = document.getElementById('allow');
+    const manual = document.getElementById('manual');
+    let consent = false; // Page-only choice: no persistent cookie or storage.
+    let widget;
+    let submitting = false;
+    window.rawstageCaptchaReady = () => {
+      if (form.dataset.enabled !== 'true' || !consent) return;
+      widget = grecaptcha.render('captcha', {
+        sitekey:'6Lfdg8wtAAAAAH1BFAKxCLiCvnZt8d--fj3sX0CM', theme:'dark',
+        callback: () => { send.disabled = false; status.textContent = 'Ready to request your confirmation email.'; },
+        'expired-callback': () => { send.disabled = true; status.textContent = 'Please complete a new anti-bot check.'; },
+        'error-callback': () => { send.disabled = true; status.textContent = 'The anti-bot check is unavailable. Reload or email info@rawstage.app.'; }
+      });
+    };
+    form.addEventListener('submit', event => {
+      if (form.dataset.enabled !== 'true' || !consent || submitting || widget === undefined || !grecaptcha.getResponse(widget)) {
+        event.preventDefault(); return;
+      }
+      submitting = true; send.disabled = true; status.textContent = 'Submitting your request…';
+    });
+    document.getElementById('decline').addEventListener('click', () => {
+      manual.hidden = false;
+      status.textContent = 'Google reCAPTCHA has not been loaded. You can request the beta by email.';
+    });
+    document.getElementById('withdraw').addEventListener('click', () => {
+      consent = false; send.disabled = true; form.hidden = true;
+      window.location.reload();
+    });
+    allow.addEventListener('click', () => {
+      if (form.dataset.enabled !== 'true' || consent) return;
+      consent = true; choice.hidden = true; manual.hidden = true;
+      document.getElementById('withdrawal').hidden = false;
+      form.hidden = false; status.textContent = 'Complete the anti-bot check before requesting an email.';
+      const script = document.createElement('script');
+      script.src = 'https://www.google.com/recaptcha/api.js?onload=rawstageCaptchaReady&render=explicit';
+      script.async = true; script.defer = true;
+      script.onerror = () => { status.textContent = 'The anti-bot check could not load. Reload or email info@rawstage.app.'; };
+      document.head.appendChild(script);
+    });
+    if (form.dataset.enabled === 'true') {
+      allow.disabled = false;
+      status.textContent = 'Choose whether to load Google reCAPTCHA or request the beta by email.';
+    }
+  </script>
+</main></body>
+</html>
