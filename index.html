@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RawStage — free beta · Tether, cull and develop RAW on macOS</title>
-<meta name="description" content="RawStage — tethered capture, instant culling and real RAW development for session photographers on macOS. The beta is free, with everything unlocked for 60 days. No catalog, no cloud, no subscription.">
+<meta name="description" content="RawStage — tethered capture, instant culling and real RAW development for session photographers on macOS. Free beta, with every tool unlocked until the build's expiry date. No catalog, no cloud, no subscription.">
 
 <!-- Link previews. Without these, Facebook and Instagram pick the title, the
      description and whatever image they find — on a launch post that card is
@@ -13,14 +13,14 @@
 <meta property="og:site_name" content="RawStage">
 <meta property="og:url" content="https://rawstage.app/">
 <meta property="og:title" content="RawStage — Shoot. Cull. Develop.">
-<meta property="og:description" content="The missing darkroom for session photographers on macOS: tethered capture, fast culling and real RAW development in one window. Free beta, everything unlocked for 60 days.">
+<meta property="og:description" content="The missing darkroom for session photographers on macOS: tethered capture, fast culling and real RAW development in one window. Free beta, every tool unlocked until the build's expiry date.">
 <meta property="og:image" content="https://rawstage.app/img/og-card.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="RawStage: Shoot. Cull. Develop. One app, no subscription. Everything unlocked for 60 days — beside a landscape photograph developed in the app.">
+<meta property="og:image:alt" content="RawStage: Shoot. Cull. Develop. One app, no subscription — beside a landscape photograph developed in the app.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="RawStage — Shoot. Cull. Develop.">
-<meta name="twitter:description" content="Tethered capture, fast culling and real RAW development for session photographers on macOS. Free beta, everything unlocked for 60 days.">
+<meta name="twitter:description" content="Tethered capture, fast culling and real RAW development for session photographers on macOS. Free beta, every tool unlocked until the build's expiry date.">
 <meta name="twitter:image" content="https://rawstage.app/img/og-card.jpg">
 <style>
   :root{
@@ -216,6 +216,23 @@
   .final{padding:104px 0 96px;text-align:center}
   .final h2{font-size:34px;letter-spacing:-.015em;margin-bottom:16px}
   .final p{max-width:520px;margin:0 auto 32px;font-size:14.5px}
+  .newsletter-preview{border:0;max-width:520px;margin:0 auto;padding:0;text-align:left}
+  .newsletter-preview label{display:block;margin:12px 0;font-size:14px}
+  .newsletter-preview input[type=email]{width:100%;padding:12px;background:var(--panel);color:var(--txt-hi);border:1px solid var(--line-strong);border-radius:8px}
+  .newsletter-preview input[type=checkbox]{width:auto;margin-right:8px}
+  .newsletter-preview button:disabled{opacity:.55;cursor:not-allowed}
+  .beta-card{max-width:580px;margin:28px auto;padding:30px;background:var(--panel);border:1px solid var(--line-strong);border-radius:18px;text-align:left}
+  .beta-card label{display:block;margin:14px 0;color:var(--txt-hi);font-size:14px}
+  .beta-card input[type=email]{box-sizing:border-box;width:100%;padding:14px;border:1px solid var(--line-strong);border-radius:9px;background:#101012;color:#e8e8ea;font:inherit}
+  .beta-card .choice{display:flex;gap:12px;align-items:flex-start;line-height:1.6}
+  .beta-card .choice input{margin-top:5px;flex-shrink:0}
+  .beta-card p{font-size:13px;margin:14px 0;max-width:none;line-height:1.7}
+  .beta-card .btn{width:100%;margin-top:10px}
+  .preview-note{position:sticky;top:0;z-index:100;background:#2a2418;color:#f0d6a6;padding:10px 20px;text-align:center;font-size:13px}
+  .beta-card .receipt{border-left:2px solid #D9A441;padding-left:16px;margin-top:22px}
+  .beta-card a,.final .micro a,footer .legal a{color:#e8e8ea;text-underline-offset:3px}
+  .beta-card .micro{color:#aaaab2}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid #D9A441;outline-offset:4px}
 
   /* ── footer ──────────────────────────────────── */
   footer{border-top:1px solid var(--line-faint);padding:36px 0 44px}
@@ -236,6 +253,7 @@
 </style>
 </head>
 <body>
+<div class="preview-note" role="note">Design preview · email requests are simulated · nothing is sent or saved · not published</div>
 
 <nav>
   <div class="wrap nav-inner">
@@ -256,7 +274,7 @@
   <div class="waitlist">
     <a class="btn" href="#download">Download the beta</a>
   </div>
-  <span class="micro">Everything unlocked for 60 days. No catalog. No cloud. Your folder is the session.</span>
+  <span class="micro">Pro unlocked during the beta period. No catalog. No cloud. Your folder is the session.</span>
   <div><span class="beta-dot"><i></i>Beta 0.9 — macOS 14+ · Apple silicon</span></div>
 </header>
 
@@ -388,7 +406,7 @@
 
   <p class="micro" style="margin-top:18px">
     The two above are the Pro colour engine — and it is unlocked in the beta you
-    can download today, for the 60 days this build runs. The first two shots are the
+    can download today, during this build's beta period. The first two shots are the
     free half, and that half stays free.
   </p>
 
@@ -490,7 +508,7 @@
       editor for reaching into one colour without disturbing its neighbours,
       MOOD for imposing a palette by tonal band, and the professional export
       formats — TIFF 16-bit, HEIC, print sizing, Display P3 and Adobe RGB.
-      Every beta build carries a 60-day clock; when it runs out the Pro tools
+      Each build has a beta expiry date shown in the app; when it arrives the Pro tools
       lock and everything above keeps working. Nothing you edited is lost:
       your settings stay in your session, still applied, still exporting.</p>
     </div>
@@ -508,42 +526,21 @@
 </section>
 
 <section class="final wrap" id="download" style="padding-bottom:24px">
-  <h2>Download the beta.</h2>
+  <h2>Your next session starts here.</h2>
   <p>Signed and notarized. <b style="color:#E8E8EA">Requires macOS 14 (Sonoma)
   or later.</b> Built and measured on Apple silicon; the binary is universal,
   so Intel Macs run it too — untested, brave owners welcome. No licence key
   and nothing to buy: every tool in the app, Pro included, is unlocked while
-  this build's 60-day clock runs. Leave your email and the download unlocks;
-  we'll also tell you when new builds land.</p>
-  <form class="waitlist" id="gate-form">
-    <input type="email" name="email" required placeholder="your@email.com" aria-label="Email address">
-    <button class="btn" type="submit" id="gate-btn">Unlock download</button>
-  </form>
-  <div class="waitlist" id="dl-row" style="display:none">
-    <a class="btn" id="dl-link" href="https://github.com/fredericovanzeller/rawstage-site/releases/latest/download/RawStage-beta.dmg">Download RawStage beta (.dmg)</a>
+  this build's beta period runs.</p>
+  <div class="beta-card" aria-labelledby="beta-request-title">
+    <h3 id="beta-request-title">Download the beta.</h3>
+    <p>No email, registration or CAPTCHA required.</p>
+    <a class="btn" href="https://github.com/fredericovanzeller/rawstage-site/releases/latest/download/RawStage-beta.dmg" rel="noreferrer">Download RawStage beta</a>
+    <p>
+    <a href="privacy.html">Privacy notice</a> ·
+    <a href="mailto:info@rawstage.app">Contact Frederico</a>.</p>
+    <p>New-build announcements are a separate, optional subscription, not part of tester registration.</p>
   </div>
-  <span class="micro" id="gate-note">Your email goes to us and nowhere else — build announcements only.</span>
-  <script>
-  document.getElementById('gate-form').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    const btn = document.getElementById('gate-btn');
-    btn.disabled = true; btn.textContent = 'One second…';
-    try {
-      const r = await fetch('https://formspree.io/f/xljrdqgk', {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: new FormData(this)
-      });
-      if (!r.ok) throw new Error('formspree');
-      this.style.display = 'none';
-      document.getElementById('dl-row').style.display = 'flex';
-      document.getElementById('gate-note').textContent = 'Thanks — the download is yours. We\'ll keep you posted on new builds.';
-    } catch (err) {
-      btn.disabled = false; btn.textContent = 'Unlock download';
-      document.getElementById('gate-note').textContent = 'Something hiccuped — try again, or email us and we\'ll send the link.';
-    }
-  });
-  </script>
   <p class="micro" style="display:block;max-width:660px;margin:26px auto 0;line-height:1.75">
   New to it? <a href="start.html" style="color:#E8E8EA">Getting started</a>
   walks through a first session end to end — including the one camera setting a
@@ -591,8 +588,8 @@
       <p>Pro is a one-time purchase. No subscription, ever. Culling, tethering,
       the studio windows and the classic develop panel stay free — that half of
       the app is not a trial with a countdown on it. Beta testers get founder
-      pricing at launch: that is the thank-you, and it is the only thing the
-      email address is for.</p>
+      pricing at launch: that is the thank-you. Newsletter subscription is
+      optional and is not a condition of downloading the beta.</p>
     </div>
   </div>
   <p class="micro" style="display:block;margin:24px 0 0;line-height:1.75">
@@ -615,19 +612,19 @@
 </section>
 
 <section class="final wrap" id="updates">
-  <h2>New builds, straight to your inbox.</h2>
-  <p>Leave your email and you'll get a short note when a new beta build
-  lands — and founder pricing when RawStage launches. Nothing else.</p>
-  <form class="waitlist" action="https://formspree.io/f/xljrdqgk" method="POST">
-    <input type="email" name="email" required placeholder="your@email.com" aria-label="Email address">
-    <input type="hidden" name="_subject" value="RawStage beta signup">
-    <button class="btn" type="submit">Keep me posted</button>
-  </form>
-  <span class="micro">No spam. One click to leave. Your email goes nowhere else.</span>
+  <span class="kicker">Already testing RawStage?</span>
+  <h2>Keep your beta up to date.</h2>
+  <p>You can always get the latest published build here, even if you do not
+  subscribe to emails. Turning off announcements never removes access to updates.</p>
+  <a class="btn" id="dl-link" href="https://github.com/fredericovanzeller/rawstage-site/releases/latest/download/RawStage-beta.dmg">Download the latest beta (.dmg)</a>
+  <p class="micro" style="margin-top:20px">Download hosted on GitHub. Need help?
+  <a href="mailto:info@rawstage.app">info@rawstage.app</a>.</p>
 </section>
 
 <footer>
   <div class="wrap">
+    <p class="legal">RawStage is developed by Frederico van Zeller, acting in his own name.
+    <a href="privacy.html">Privacy notice</a>.</p>
     <p class="compat">Opens RAW files from all major camera brands (RAF,
     ARW, CR3, NEF, DNG and more). Native tethered capture is compatible
     with Fujifilm X and GFX cameras; any camera that can write to a
