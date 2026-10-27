@@ -6,6 +6,19 @@
     <description>Beta builds of RawStage.</description>
     <language>en</language>
     <item>
+      <title>0.9.0 (build 24)</title>
+      <pubDate>Tue, 27 Oct 2026 17:16:42 +0000</pubDate>
+      <sparkle:version>24</sparkle:version>
+      <sparkle:shortVersionString>0.9.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<p>New interface. Feedback now goes to info@rawstage.app. Exported logs no longer name your session folders or your home folder.</p>]]></description>
+      <enclosure
+        url="https://github.com/fredericovanzeller/rawstage-site/releases/download/v0.9.0-b24/RawStage-0.9.0-b24.dmg"
+        sparkle:edSignature="LaN4VDypAEXy1prFuTY2//OehXkEK596wpCWGTaoHtHr3+Ee/5tdh8kuu1pXbQkM9AdZfNUpkxDSy7TpoJ2kBw=="
+        length="8916455"
+        type="application/octet-stream" />
+    </item>
+    <item>
       <title>0.9.0 (build 23)</title>
       <pubDate>Sun, 25 Oct 2026 18:58:20 +0000</pubDate>
       <sparkle:version>23</sparkle:version>
