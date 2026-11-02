@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RawStage — Buy Pro</title>
+  <meta name="description" content="RawStage is free to use. Pro is paid once and is yours to keep. No subscription.">
+  <!--
+    The buy page: Paddle's default payment link (https://rawstage.app/buy).
+    Everything that can change — the environment, the client-side token,
+    the price ids, the list prices, whether the founding price is public —
+    comes from the licence service (/checkout-config); this file carries
+    none of it, so sandbox → live is a change on the server only.
+    A link with ?_ptxn=txn_… (a personal founding link, "Continue payments")
+    is opened by Paddle.js itself once it is initialised.
+    Paddle.js is the one third-party script on this site; privacy.html says so.
+  -->
+  <style>
+    :root{color-scheme:dark}
+    body{margin:0;background:#101012;color:#e8e8ea;font:17px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    main{max-width:960px;margin:auto;padding:40px 24px 80px}
+    h1,h2,h3{line-height:1.25}h2{margin-top:48px;font-size:23px}h3{font-size:18px;margin:0 0 6px}
+    a{color:#e8e8ea;text-underline-offset:4px}a:focus-visible,button:focus-visible{outline:2px solid #d9a441;outline-offset:4px}
+    .muted{color:#aaaab2;font-size:15px}li{margin:8px 0}
+    .hero h1{font-size:44px;margin:0 0 8px}
+    .strip{margin:28px 0;padding:16px 20px;border:1px solid #d9a441;border-radius:12px;background:#1a1712}
+    .strip strong{color:#d9a441}
+    .cols{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:24px;max-width:720px}
+    .col{padding:22px;border:1px solid #2c2c30;border-radius:14px;background:#1a1a1c}
+    .col .price{font-size:26px;font-weight:600;margin:4px 0 2px}
+    .col .sub{color:#aaaab2;font-size:14px;margin-bottom:14px}
+    .col ul{padding-left:18px;margin:10px 0}
+    .btn{display:inline-block;margin-top:14px;padding:10px 18px;border-radius:999px;background:#e8e8ea;color:#101012;font:inherit;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+    .btn.ghost{background:transparent;color:#e8e8ea;border:1px solid #3a3a40}
+    .btn[disabled]{opacity:.5;cursor:default}
+    table{border-collapse:collapse;width:100%;font-size:15px;margin:18px 0}
+    th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid #2c2c30}
+    th{color:#aaaab2;font-weight:500}
+    .wide{overflow-x:auto}
+    .faq dt{font-weight:600;margin-top:18px}.faq dd{margin:4px 0 0}
+    .legal-nav{margin-top:48px;padding-top:20px;border-top:1px solid #2c2c30;font-size:15px;color:#aaaab2}
+    .notice{margin:18px 0;padding:14px 18px;border:1px solid #2c2c30;border-radius:12px;background:#1a1a1c;font-size:15px}
+    .notice.ok{border-color:#d9a441}
+    [hidden]{display:none!important}
+    @media (max-width:720px){.cols{grid-template-columns:1fr}.hero h1{font-size:34px}}
+  </style>
+</head>
+<body><main>
+  <nav aria-label="Back"><a href="index.html">← RawStage</a></nav>
+
+  <section class="hero">
+    <h1>Own it.</h1>
+    <p>RawStage is free to use for as long as you like. Pro is paid once and is
+    yours to keep. There's no subscription.</p>
+  </section>
+
+  <div class="notice ok" id="thanks" hidden>
+    <strong>Thank you.</strong> Your licence key is on its way to the email address you
+    gave at checkout. In RawStage, open the RawStage menu → Licence… and paste it.
+    If it has not arrived in a few minutes, check the spam folder, then use
+    “Find my licence” in the app.
+  </div>
+  <div class="notice" id="unavailable" hidden>
+    Prices could not be loaded right now. Reload the page in a moment, or write to
+    <a href="mailto:info@rawstage.app">info@rawstage.app</a>.
+  </div>
+
+  <!-- 1–31 December 2026 only; shown while the server says so, no timer -->
+  <div class="strip" id="founding-strip" hidden>
+    <p><strong>Founding price, through 31 December: Pro for <span data-money="founding:USD">…</span> / <span data-money="founding:EUR">…</span>, paid once.</strong><br>
+    For everyone who buys in December, and for our beta testers.</p>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>Free</h3>
+      <p class="price">$0, for good.</p>
+      <p class="sub">Tethered capture · Culling · The full classic develop panel · JPEG export</p>
+      <p>No account. No time limit. Use it for client work.</p>
+      <a class="btn ghost" href="index.html#download">Download</a>
+    </div>
+    <div class="col">
+      <h3>Pro</h3>
+      <p class="price"><span data-money="pro:USD">…</span> · <span data-money="pro:EUR">…</span></p>
+      <p class="sub">Paid once. Yours.</p>
+      <p>Everything in Free, plus:</p>
+      <ul>
+        <li>FILM: grain, halation and borders, plus .cube LUTs (including camera log LUTs) on any RAW</li>
+        <!-- [IF our film stocks ship] Our own film stocks. -->
+        <li>PALETTE: adjust the colours the photograph is actually made of</li>
+        <li>Colour grading wheels</li>
+        <li>16-bit TIFF and wide-gamut export</li>
+        <li>Export your look as a .cube</li>
+        <!-- [IF masks ship in 1.0] — in the build as of 29-10; confirm at RC1 (17-11) -->
+        <li>Linear and radial masks</li>
+        <!-- [IF N1 ships in 1.0] — in the build as of 28-10; confirm at RC1 (17-11) -->
+        <li>Develop scanned film negatives</li>
+        <li>Saved presets</li>
+        <li>Every 1.x update</li>
+      </ul>
+      <p class="sub">Two Macs per licence.</p>
+      <!-- the checkout opens on launch day, by the server's word (on_sale); until then the button says when -->
+      <button class="btn" type="button" data-buy="pro" disabled>On sale from 1 December</button>
+    </div>
+  </div>
+  <p class="muted"><em>EUR prices include VAT. USD prices exclude sales tax, which is added at
+  checkout where it applies. Orders are handled by Paddle, our reseller and
+  Merchant of Record. 14-day refunds, no questions.</em></p>
+
+  <h2>One app instead of two.</h2>
+  <p>Session photographers usually run two programs: a tether utility and a
+  subscription editor. RawStage does both.</p>
+  <div class="wide">
+  <table>
+    <tr><th>Over three years</th><th>Cost</th></tr>
+    <tr><td>A tether utility + Lightroom</td><td>$531–$582</td></tr>
+    <tr><td>A tether utility + Capture One Pro</td><td>$747–$798</td></tr>
+    <tr><td><strong>RawStage Pro</strong></td><td><strong><span data-money="pro:USD">…</span></strong></td></tr>
+  </table>
+  </div>
+  <p class="muted"><em>List prices in US dollars, October 2026. Tether utility: $99–$150, one-time.
+  Lightroom: $11.99/month on the annual plan. Capture One Pro: $18/month on the
+  annual plan. Before tax.</em></p>
+
+  <h2>How it compares</h2>
+  <div class="wide">
+  <table>
+    <tr><th></th><th>RawStage</th><th>Capture One Pro</th><th>Lightroom Classic</th></tr>
+    <tr><td>Price</td><td>Free forever; Pro <span data-money="pro:USD">…</span>, paid once</td><td>$18/month (annual), or $349 perpetual without the newest updates</td><td>$11.99/month (annual); subscription only</td></tr>
+    <tr><td>If you stop paying</td><td>Nothing to stop: Pro is paid once and stays yours</td><td>The subscription ends; perpetual is a separate purchase</td><td>Develop switches off; you can still organise and export</td></tr>
+    <tr><td>Tethering</td><td>In every version, including Free; Fujifilm X/GFX native over USB; other brands through a watched folder <span class="muted">[update if Sony/Canon/Nikon pass the test day]</span></td><td>Included, many brands, with live view</td><td>Included, many brands (Fujifilm native)</td></tr>
+    <tr><td>Organisation</td><td>The folder is the session; edits live in a file next to each RAW; no catalog</td><td>Catalogs or sessions</td><td>Catalog</td></tr>
+    <tr><td>Account &amp; cloud</td><td>No account, no cloud</td><td>Capture One account</td><td>Adobe account; syncs with Lightroom mobile</td></tr>
+    <tr><td>Film look</td><td>FILM: grain, halation, borders; .cube LUTs, including camera log LUTs on any RAW</td><td>Styles, grain</td><td>Profiles, presets, grain</td></tr>
+    <tr><td>Local masks</td><td>By colour (PALETTE); linear and radial</td><td>Layers with masks, including AI</td><td>AI masks (subject, sky), brush, gradients</td></tr>
+    <tr><td>Retouch &amp; merges</td><td>No healing, cloning, HDR or panoramas</td><td>Healing and cloning on layers; HDR and panoramas <span class="muted">[confirm]</span></td><td>Healing, AI Denoise, HDR and panoramas</td></tr>
+    <tr><td>Platforms</td><td>macOS, native</td><td>macOS, Windows, iPad, iPhone</td><td>macOS, Windows, plus Lightroom mobile and web</td></tr>
+    <tr><td>Who makes it</td><td>One photographer who writes the code; you talk to the person who builds it</td><td>A company, decades of development</td><td>Adobe; the largest community and plugin ecosystem</td></tr>
+  </table>
+  </div>
+  <p class="muted"><em>RawStage numbers are measured on our own sessions and dated. Competitor
+  details come from their official pages, checked [date].</em></p>
+
+  <h2>Questions</h2>
+  <dl class="faq">
+    <dt>Is this a subscription?</dt>
+    <dd>No. Pro is paid once, and the licence is yours.</dd>
+    <dt>How many Macs can I use it on?</dt>
+    <dd>Two at a time — say, the studio Mac and your laptop. You can move a licence
+    to a new Mac from inside the app.</dd>
+    <dt>What if it's not for me?</dt>
+    <dd>Ask for a refund within 14 days, no questions. Better still, use RawStage Free
+    on a real session first: it has no time limit.</dd>
+    <dt>Do I get updates?</dt>
+    <dd>Every 1.x update is included. When 2.0 arrives, licence holders upgrade at half
+    price — free if you bought in the six months before it.</dd>
+    <dt>Do I need an account?</dt>
+    <dd>No. Your licence is a key. RawStage contacts our server once to activate it,
+    then works offline.</dd>
+    <dt>Who handles the payment?</dt>
+    <dd>Paddle, our reseller and Merchant of Record. They take care of payment, VAT,
+    invoices and refunds.</dd>
+    <dt id="faq-founding" hidden>What does the founding price include?</dt>
+    <dd id="faq-founding-answer" hidden>Exactly the same Pro licence, for <span data-money="founding:USD">…</span> / <span data-money="founding:EUR">…</span>, paid once, through 31 December
+    2026.</dd>
+  </dl>
+
+  <p class="legal-nav">Contact: <a href="mailto:info@rawstage.app">info@rawstage.app</a> · Legal: <a href="refund.html">Refund Policy</a> · <a href="privacy.html">Privacy</a></p>
+</main>
+
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script>
+(async () => {
+  const SERVICE = "https://rawstage-licences.rawstage.workers.dev";
+  const params = new URLSearchParams(location.search);
+  if (params.has("thanks")) document.getElementById("thanks").hidden = false;
+
+  const money = (minor, currency) => {
+    const symbol = { USD: "$", EUR: "€", GBP: "£" }[currency] || (currency + " ");
+    return symbol + (minor % 100 === 0 ? String(minor / 100) : (minor / 100).toFixed(2));
+  };
+
+  let config;
+  try {
+    const response = await fetch(SERVICE + "/checkout-config", { mode: "cors" });
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    config = await response.json();
+  } catch (error) {
+    document.getElementById("unavailable").hidden = false;
+    return; // the page still reads; the buttons stay disabled
+  }
+
+  // the prices, from the server, wherever the copy names one
+  for (const span of document.querySelectorAll("[data-money]")) {
+    const [kind, currency] = span.dataset.money.split(":");
+    const minor = config.prices && config.prices[kind] && config.prices[kind][currency];
+    if (typeof minor === "number") span.textContent = money(minor, currency);
+  }
+  if (config.founding_public) {
+    document.getElementById("founding-strip").hidden = false;
+    document.getElementById("faq-founding").hidden = false;
+    document.getElementById("faq-founding-answer").hidden = false;
+    const pro = document.querySelector('.col [data-money="pro:USD"]').closest(".col");
+    pro.querySelector(".price").innerHTML = money(config.prices.founding.USD, "USD") + " · " + money(config.prices.founding.EUR, "EUR");
+    pro.querySelector(".sub").textContent = "Founding price, paid once. Yours.";
+  }
+
+  // Before launch day the page shows the prices and says when; the checkout
+  // opens only when the server says the sale is on — and, on a preview
+  // (localhost), whatever the date, so the sandbox can be tried.
+  const preview = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+  if (!config.on_sale && !preview) return; // the button keeps "On sale from 1 December"
+  if (!window.Paddle || !config.client_token) {
+    document.getElementById("unavailable").hidden = false;
+    return;
+  }
+  if (config.environment === "sandbox") Paddle.Environment.set("sandbox");
+  Paddle.Initialize({
+    token: config.client_token,
+    checkout: {
+      settings: {
+        displayMode: "overlay",
+        theme: "dark",
+        locale: "en",
+        successUrl: location.origin + "/buy?thanks",
+      },
+    },
+  });
+  // A ?_ptxn=txn_… link (a personal founding link, "Continue payments") is
+  // opened by Paddle.js itself at Initialize; nothing to do here.
+
+  // the 1.0 sells the one-time purchase only; the server says which price (founding in December)
+  const priceFor = { pro: config.founding_public ? config.price_ids.founding : config.price_ids.pro };
+  for (const button of document.querySelectorAll("[data-buy]")) {
+    const priceId = priceFor[button.dataset.buy];
+    if (!priceId) continue;
+    button.textContent = button.dataset.buy === "pro" ? (config.founding_public ? "Buy Pro — Founding" : "Buy Pro") : button.textContent;
+    button.disabled = false;
+    button.addEventListener("click", () => {
+      Paddle.Checkout.open({ items: [{ priceId, quantity: 1 }] });
+    });
+  }
+})();
+</script>
+</body>
+</html>

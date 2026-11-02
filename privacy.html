@@ -13,24 +13,29 @@
     a{color:#e8e8ea;text-underline-offset:4px}a:focus-visible{outline:2px solid #d9a441;outline-offset:4px}
     .short{padding:20px;border:1px solid #2c2c30;border-radius:12px;background:#1a1a1c}
     .muted{color:#aaaab2;font-size:15px}li{margin:10px 0}
+    .draft{display:inline-block;margin:0 0 18px;padding:4px 10px;border:1px solid #d9a441;border-radius:999px;color:#d9a441;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+    .legal-nav{margin-top:48px;padding-top:20px;border-top:1px solid #2c2c30;font-size:15px;color:#aaaab2}
   </style>
 </head>
 <body><main>
   <nav aria-label="Back"><a href="index.html">← RawStage</a></nav>
   <h1>Privacy</h1>
-  <p class="muted">Last updated 27 October 2026.</p>
+  <p class="muted">Last updated 2 November 2026. The previous version is dated 27 October 2026.</p>
 
   <div class="short">
     <p><strong>The short version.</strong> RawStage is local-first. Your photographs,
     edits and sessions stay on your Mac; the app has no account, no analytics and
-    no telemetry. This website sets no cookies and loads no trackers. We only handle
-    personal data when you write to us — and, until 25 October 2026, when the
-    download page asked for your email address.</p>
+    no telemetry. This website sets no cookies of its own and runs no analytics;
+    the one page that loads anything from a third party is the buy page, which
+    loads Paddle's checkout. We handle personal data in four cases: when you buy
+    a Pro licence (through Paddle, our reseller), when the app activates and
+    checks that licence, when you apply to the tester programme, and when you
+    write to us.</p>
   </div>
 
   <h2>Who is responsible</h2>
-  <p>Frederico van Zeller, who develops RawStage in his own name (not through a
-  company), is responsible for the personal data described here. Contact:
+  <p>Frederico van Zeller, who develops and sells RawStage in his own name (not
+  through a company), is responsible for the personal data described here. Contact:
   <a href="mailto:info@rawstage.app">info@rawstage.app</a>.</p>
 
   <h2>The app</h2>
@@ -38,10 +43,11 @@
     <li><strong>Photographs, edits and sessions</strong> never leave your Mac. Edits are
     saved as small files next to your RAWs, in the folders you choose.</li>
     <li><strong>Update checks.</strong> RawStage asks
-    <code>rawstage.app/appcast.xml</code> whether a newer build exists (using the
-    open-source Sparkle updater). Like any web request, this reveals your IP address
-    and basic technical details such as the app version to the site's host. It sends
-    no profile of your Mac and nothing about your photographs.</li>
+    <code>rawstage.app/appcast.xml</code> — or <code>appcast-beta.xml</code>, in a
+    tester build — whether a newer build exists (using the open-source Sparkle
+    updater). Like any web request, this reveals your IP address and basic technical
+    details such as the app version to the site's host. It sends no profile of your
+    Mac and nothing about your photographs.</li>
     <li><strong>Feedback is always your choice.</strong> Help → Send Feedback… and
     Help → Export Logs… prepare an email or a file on your Mac; nothing is sent until
     you send it yourself. The diagnostic log describes what the app did — it can
@@ -53,14 +59,76 @@
     Mail address).</li>
   </ul>
 
+  <h2>Buying a licence</h2>
+  <p>Our order process is conducted by our online reseller Paddle.com. Paddle.com is
+  the Merchant of Record for all our orders: it takes the payment, issues the invoice,
+  handles VAT and sales tax, and processes refunds. At checkout Paddle collects what
+  a sale needs — your name, email address, country and billing address, payment
+  details and, for businesses, a VAT number — under
+  <a href="https://www.paddle.com/legal/privacy">Paddle's privacy policy</a>. We never
+  see your card or bank details.</p>
+  <p>From Paddle we receive your email address, the identifiers of your order, the
+  product, currency and amounts, and your country. We keep them in our licence
+  database, hosted on Cloudflare, so that we can issue your licence key, tell which
+  Macs it is active on, and act on refunds and chargebacks. We keep these records
+  for as long as your licence exists, and afterwards for as long as tax and
+  accounting law requires.</p>
+  <p>The emails this needs — your licence key, and any notice about your order —
+  are sent from info@rawstage.app through Brevo, an email service based
+  in France. They are transactional: no newsletter is attached to a purchase. They
+  are plain text, with no images and no links, so they carry no open-tracking pixel
+  and no tracked links; we do not know whether you opened them. Brevo keeps the
+  delivery log (address, time, delivered or bounced) under
+  <a href="https://www.brevo.com/legal/privacypolicy/">Brevo's privacy policy</a>.</p>
+
+  <h2>Activating and checking a licence</h2>
+  <p>When you enter a licence key, RawStage sends our licence server the key, the app
+  version and an identifier of your Mac. That identifier is a one-way hash (SHA-256)
+  of the Mac's hardware UUID with a fixed suffix: it tells our server "the same Mac
+  again" and nothing else, and the UUID itself never leaves your Mac. The server
+  answers with a signed token that the app stores in a file only your user account
+  can read. A Pro licence can be active on two Macs at a time; deactivating a Mac
+  tells the server to free it.</p>
+  <p>Afterwards the app checks the licence against the server from time to time —
+  at most once every seven days. Each check sends the token, which carries the
+  licence id and the same hashed identifier. The check never blocks the app:
+  without a network connection the last token stands, and the licence works
+  offline indefinitely.</p>
+  <p>The licence server runs on Cloudflare Workers. Like any web request, a call to it
+  reveals your IP address to Cloudflare; we keep an audit trail of licence events
+  (activations, deactivations, payments, refunds) for as long as the licence
+  records above. Nothing about your photographs, your edits or how you use the app
+  is sent — there is still no analytics and no telemetry.</p>
+
+  <h2>The tester programme</h2>
+  <p>If you apply to RawStage Testers, the application asks for your email address,
+  your camera bodies, the kind of work you do, how much of it you shoot tethered,
+  and the Mac you use. We use these answers only to run the programme: to choose
+  whom to invite, to send early builds through the tester update channel, and to
+  write to you about them. Your name appears in the app's credits only if you say
+  so. Applications are received by email at info@rawstage.app.
+  If you are not selected we delete your application after 90 days; if you are,
+  we keep it for as long as you are in the programme, or until you ask us to
+  delete it.</p>
+
   <h2>This website</h2>
   <p>rawstage.app is hosted on GitHub Pages, and the downloads on GitHub Releases.
   As the host, GitHub receives technical request data such as your IP address and
   browser information; see
   <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.
-  The site itself uses no cookies, analytics, advertising pixels, embedded fonts or
-  third-party scripts, and downloading RawStage requires no email address or
+  The site itself sets no cookies, runs no analytics, and loads no advertising
+  pixels or embedded fonts; downloading RawStage requires no email address or
   registration.</p>
+  <p><strong>The buy page is the exception.</strong> rawstage.app/buy loads one
+  third-party script, Paddle.js, from Paddle's servers, and opens Paddle's checkout
+  as an overlay on the page. Paddle's checkout sets its own cookies and browser
+  storage to run the purchase and to detect fraud, under
+  <a href="https://www.paddle.com/legal/privacy">Paddle's privacy policy</a>; it loads
+  only when you open rawstage.app/buy, not on any other page. The buy page also asks
+  our licence server for the current prices — an anonymous request that, like any
+  web request, reveals your IP address to Cloudflare, which hosts the server. If you
+  arrive on the buy page through a personal purchase link we sent you, the link
+  carries the identifier of your order, and Paddle opens that order.</p>
 
   <h2>When you email us</h2>
   <p>If you write to info@rawstage.app, or send feedback from the app, we use your
@@ -74,30 +142,44 @@
   were processed by Formspree, a form service based in the United States, and
   forwarded to our mailbox — so the page's statement that addresses went "nowhere
   else" was not accurate, and we have since removed that form.</p>
-  <p>We will not use those addresses for marketing or add them to any mailing list.
-  You can ask us to delete yours at any time, and we will delete all of them by
-  31 January 2027, when the current beta ends.</p>
+  <p>We will not use those addresses for marketing or add them to any mailing list —
+  not even to announce the founding price. You can ask us to delete yours at any
+  time, and we will delete all of them by 31 January 2027.</p>
 
   <h2>Legal bases and international processing</h2>
-  <p>We reply to your messages because you asked us to (and in our legitimate
-  interest in supporting the software). Addresses given on the old download form
-  were provided with your consent, which you can withdraw. Hosting data is processed
-  in the legitimate interest of running and securing the site.</p>
-  <p>GitHub, Google, Apple and Formspree may process data outside the European Union,
-  including in the United States, under the transfer safeguards described in their
-  own privacy terms.</p>
+  <p>We process purchase and licence data because it is needed to sell you the
+  licence and keep it working (the contract with you), and afterwards because tax
+  and accounting law requires us to keep records of sales. We reply to your messages
+  because you asked us to (and in our legitimate interest in supporting the
+  software). Tester applications, and your name in the credits, rest on your
+  consent, which you can withdraw. Addresses given on the old download form were
+  provided with your consent, which you can withdraw. Hosting and security data is
+  processed in the legitimate interest of running and securing the site and the
+  licence server.</p>
+  <p>Paddle (United Kingdom and United States), Cloudflare, GitHub, Google, Apple and
+  Formspree may process data outside the European Union, including in the United
+  States, under the transfer safeguards described in their own privacy terms. Brevo
+  processes the transactional emails in the European Union.</p>
+  <p>In short, the third parties that handle data on our behalf are: Paddle (the
+  purchase and the checkout), Cloudflare (the licence server and its database),
+  Brevo (the transactional emails), GitHub (this website and the downloads) and
+  Google (the info@rawstage.app mailbox). The app's update check (Sparkle)
+  reaches only our site.</p>
 
   <h2>Your rights</h2>
   <p>You may ask for access to, correction or deletion of your personal data, ask us
   to restrict or stop processing it, and ask for a copy in a portable format. Where
   processing relies on your consent, you can withdraw it at any time. Write to
-  <a href="mailto:info@rawstage.app">info@rawstage.app</a>. You can also complain to the
+  <a href="mailto:info@rawstage.app">info@rawstage.app</a>. Deleting licence records
+  while a licence is active would end that licence; we will tell you before we do
+  it. You can also complain to the
   <a href="https://www.cnpd.pt/">Portuguese data protection authority (CNPD)</a> or the
   authority where you live.</p>
 
   <h2>Changes</h2>
-  <p>If RawStage starts handling personal data in a new way — for example an optional
-  newsletter or paid licences — this page will be updated first, and anything that
-  needs your consent will ask for it separately.</p>
+  <p>If RawStage starts handling personal data in a new way, this page will be
+  updated first, and anything that needs your consent will ask for it separately.</p>
+
+  <p class="legal-nav">Contact: <a href="mailto:info@rawstage.app">info@rawstage.app</a> · Legal: <a href="refund.html">Refund Policy</a> · <a href="privacy.html">Privacy</a></p>
 </main></body>
 </html>
