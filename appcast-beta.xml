@@ -11,7 +11,7 @@
       <sparkle:version>25</sparkle:version>
       <sparkle:shortVersionString>1.0.0</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-      <description><![CDATA[<p>FILM: .cube LUTs, including camera log LUTs on any RAW, with grain, halation and borders. Linear and radial masks. Scanned film negatives.</p><p>When 1.0 arrives on 1 December, RawStage Free keeps the Pro edits of the last eight sessions you opened in the beta. Open the ones you care about before then.</p>]]></description>
+      <description><![CDATA[<p>FILM: .cube LUTs, including camera log LUTs on any RAW, with grain, halation and borders. Linear and radial masks. Scanned film negatives.</p><p>When 1.0 arrives on 1 December, RawStage Free opens beta photos without their Pro edits. The edits stay in the file and come back with Pro.</p>]]></description>
       <enclosure
         url="https://github.com/fredericovanzeller/rawstage-site/releases/download/v1.0.0-b25/RawStage-1.0.0-b25.dmg"
         sparkle:edSignature="UH5suOxYRpcQ7Xa8977j3Ge31ZrBhJmvQtyQpLZ75ls2dOq1GPhhuvsrMcfCFmLXubJQYVowYqxGZcZbRKp6Aw=="
