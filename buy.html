@@ -10,7 +10,8 @@
     Everything that can change — the environment, the client-side token,
     the price ids, the list prices, whether the founding price is public —
     comes from the licence service (/checkout-config); this file carries
-    none of it, so sandbox → live is a change on the server only.
+    none of it, so sandbox → live was the one SERVICE line below plus the
+    live Worker's own configuration.
     A link with ?_ptxn=txn_… (a personal founding link, "Continue payments")
     is opened by Paddle.js itself once it is initialised.
     Paddle.js is the one third-party script on this site; privacy.html says so.
@@ -171,7 +172,12 @@
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <script>
 (async () => {
-  const SERVICE = "https://rawstage-licences.rawstage.workers.dev";
+  // The LIVE licence Worker (5-11-2026: Paddle approved rawstage.app's
+  // checkout and Apple Pay, so the live account is the one that sells).
+  // The page carries no price, no price id and no token of its own — all of
+  // it comes from /checkout-config, which is why sandbox → live is this one
+  // line. The sandbox Worker stays up for the tester licence until RC1.
+  const SERVICE = "https://rawstage-licences-live.rawstage.workers.dev";
   const params = new URLSearchParams(location.search);
   if (params.has("thanks")) document.getElementById("thanks").hidden = false;
 
