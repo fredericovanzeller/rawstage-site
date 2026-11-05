@@ -167,12 +167,22 @@
   <p class="legal-nav">Contact: <a href="mailto:info@rawstage.app">info@rawstage.app</a> · Legal: <a href="terms.html">Terms</a> · <a href="refund.html">Refund Policy</a> · <a href="eula.html">EULA</a> · <a href="privacy.html">Privacy</a></p>
 </main>
 
+<script src="ref.js"></script>
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <script>
 (async () => {
   const SERVICE = "https://rawstage-licences.rawstage.workers.dev";
   const params = new URLSearchParams(location.search);
   if (params.has("thanks")) document.getElementById("thanks").hidden = false;
+
+  // Where this buyer came from, for the outreach pack (?ref=…). The tag is
+  // whatever we put in a link we sent out — a publication, a newsletter, a
+  // video — never anything about the person. It travels to Paddle as the
+  // transaction's custom data, so the order carries its own provenance and
+  // nothing has to be correlated afterwards. `refTag()` is in ref.js, which
+  // every page loads: a visitor who landed on the home page through a pack
+  // link and clicked through to /buy still arrives with their tag.
+  const ref = window.refTag ? window.refTag() : null;
 
   const money = (minor, currency) => {
     const symbol = { USD: "$", EUR: "€", GBP: "£" }[currency] || (currency + " ");
@@ -236,7 +246,10 @@
     button.textContent = button.dataset.buy === "pro" ? (config.founding_public ? "Buy Pro — Founding" : "Buy Pro") : button.textContent;
     button.disabled = false;
     button.addEventListener("click", () => {
-      Paddle.Checkout.open({ items: [{ priceId, quantity: 1 }] });
+      Paddle.Checkout.open({
+        items: [{ priceId, quantity: 1 }],
+        ...(ref ? { customData: { ref } } : {}),
+      });
     });
   }
 })();
